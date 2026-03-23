@@ -66,26 +66,29 @@ class CurriculumTableCard extends HookConsumerWidget {
                     ],
                   ),
                   
-                  if (isRequired)
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: primaryColor.withAlpha(30),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: Text(
-                        l10n.category_required,
-                        style: TextStyle(
-                          color: primaryColor,
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+                  if (isRequired) _buildRequiredChip(l10n, primaryColor)
                 ],
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRequiredChip(AppLocalizations l10n, Color primaryColor) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      decoration: BoxDecoration(
+        color: primaryColor.withAlpha(30),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Text(
+        l10n.category_required,
+        style: TextStyle(
+          color: primaryColor,
+          fontSize: 10,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );
