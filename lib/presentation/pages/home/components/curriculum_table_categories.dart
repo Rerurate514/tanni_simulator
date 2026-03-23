@@ -19,19 +19,94 @@ class CurriculumTableCategories extends StatefulHookConsumerWidget {
 class _CurriculumCategoriesState extends ConsumerState<CurriculumTableCategories> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context);
     final prod = widget.categories[0];
     final gen = widget.categories[1];
 
     return CustomScrollView(
       slivers: [
-        SliverToBoxAdapter(child: Text(l10n.category_elective)),
+        _buildProChip(theme, l10n),
         ..._buildTermSlivers(context, prod.courses),
 
+        SliverToBoxAdapter(
+          child: AppGap.l(),
+        ),
+
         SliverToBoxAdapter(child: const Divider()),
-        SliverToBoxAdapter(child: Text(l10n.category_general)),
+        _buildGenChip(theme, l10n),
         ..._buildTermSlivers(context, gen.courses),
       ],
+    );
+  }
+
+  Widget _buildProChip(ThemeData theme, AppLocalizations l10n) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        child: Center(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.secondaryContainer,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.school_outlined,
+                  size: 20,
+                  color: theme.colorScheme.onSecondaryContainer,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  l10n.category_professional,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: theme.colorScheme.onSecondaryContainer,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildGenChip(ThemeData theme, AppLocalizations l10n) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        child: Center(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.tertiaryFixedDim,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Icons.history_edu,
+                  size: 20,
+                  color: theme.colorScheme.onSecondaryContainer,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  l10n.category_general,
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: theme.colorScheme.onSecondaryContainer,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 
