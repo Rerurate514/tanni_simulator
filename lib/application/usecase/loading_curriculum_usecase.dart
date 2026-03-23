@@ -12,7 +12,7 @@ class LoadingCurriculumUsecase extends _$LoadingCurriculumUsecase {
     return null;
   }
 
-  Future<void> selectCurriculum(CurriculumnType type) async {
+  Future<void> selectCurriculum(CurriculumType type) async {
     state = AsyncLoading();
 
     state = await AsyncValue.guard(() async {
