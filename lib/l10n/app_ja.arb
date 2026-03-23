@@ -31,6 +31,18 @@
             }
         }
     },
+    "tanni_count": "{totalCredits} / {targetCredits} 単位",
+    "@tanni_count": {
+        "description": "単位の総数を表示",
+        "placeholders": {
+            "totalCredits": {
+                "type": "int"
+            },
+            "targetCredits": {
+                "type": "int"
+            }
+        }
+    },
 
     "@@curriculum_categories": "カリキュラム区分",
     "category_general": "教養教育科目",
