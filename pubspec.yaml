@@ -9,6 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   drift: ^2.29.0
   drift_flutter: ^0.2.7
   file_picker: ^10.3.3
@@ -29,6 +31,7 @@ dependencies:
   percent_indicator: ^4.2.3
   logger: ^2.5.0
   standalone_application_updater: ^0.0.1
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:
@@ -44,3 +47,4 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  generate: true
