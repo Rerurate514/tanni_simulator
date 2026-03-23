@@ -16,4 +16,9 @@ class CreditCalculatorService {
     .where((course) => course.isCompleted)
     .fold(0, (sum, course) => sum + course.credits);
   }
+
+  double calculatePercentage(int totalCredits, int targetCredits) {
+    final percentage = totalCredits / targetCredits;
+    return percentage >= 1.0 ? 1.0 : percentage;
+  }
 }
