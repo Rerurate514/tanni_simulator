@@ -691,8 +691,9 @@ requirements:
   # 3年次への進級条件
   - id: "promotion_to_3rd_year"
     title: "3年次への進級条件"
-    conditions:
-      must_have_course_ids: ["prof-27"] # 情報通信工学実験Ⅰ
+    categories:
+      - category_name: "専門教育科目"
+        must_have_course_ids: ["prof-27"] #情報通信工学実験Ⅰ
 
   # 4年次への進級条件
   - id: "promotion_to_4th_year"
