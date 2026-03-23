@@ -8,8 +8,9 @@ sealed class RequirementCategoryModel with _$RequirementCategoryModel {
   const factory RequirementCategoryModel({
     @JsonKey(name: 'category_name') 
     required String categoryName,
-    @JsonKey(name: 'min_credits') 
-    required int minCredits,
+    @JsonKey(name: 'min_credits')
+    @Default(0)
+    int minCredits,
     @JsonKey(name: 'must_have_course_ids') 
     @Default([]) 
     List<String> mustHaveCourseIds,
