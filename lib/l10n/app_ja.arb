@@ -3,6 +3,7 @@
     "appTitle": "単位シミュレータ",
 
     "home_dropdown_button_hint": "年度・学科",
+    "promotion_dropdown_hint": "進級ゲート",
 
     "@@category_navigation": "ナビゲーション・見出し関連",
     "nav_home": "ホーム",
