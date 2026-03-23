@@ -5,6 +5,7 @@ import 'package:tanni_simulator/domain/entities/curriculum.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
 import 'package:tanni_simulator/presentation/pages/home/components/curriculum_summary.dart';
 import 'package:tanni_simulator/presentation/pages/home/components/curriculum_table_categories.dart';
+import 'package:tanni_simulator/presentation/pages/home/components/promotion_gate_selector.dart';
 import 'package:tanni_simulator/presentation/widgets/app_gap.dart';
 
 class CurriculumTable extends StatefulHookConsumerWidget {
@@ -26,6 +27,8 @@ class _CurriculumTableState extends ConsumerState<CurriculumTable> {
         if(model == null) return Text(l10n.msg_select_curriculum_first);
         return Column(
           children: [
+            PromotionGateSelector(requirements: model.requirements),
+            AppGap.s(),
             CurriculumSummary(curriculum: model),
             AppGap.s(),
             Expanded(child: CurriculumTableCategories(categories: model.universityCurriculum))
