@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:tanni_simulator/infrastructure/models/requirement_category.dart';
+import 'package:tanni_simulator/domain/entities/requirement_category.dart';
 
 part 'requirement.freezed.dart';
 part 'requirement.g.dart';

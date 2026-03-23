@@ -1,9 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:tanni_simulator/infrastructure/models/category.dart';
-import 'package:tanni_simulator/infrastructure/models/credit_limit_group.dart';
-import 'package:tanni_simulator/infrastructure/models/exclusive_group.dart';
-import 'package:tanni_simulator/infrastructure/models/metadata.dart';
-import 'package:tanni_simulator/infrastructure/models/requirement.dart';
+import 'package:tanni_simulator/domain/entities/category.dart';
+import 'package:tanni_simulator/domain/entities/credit_limit_group.dart';
+import 'package:tanni_simulator/domain/entities/exclusive_group.dart';
+import 'package:tanni_simulator/domain/entities/metadata.dart';
+import 'package:tanni_simulator/domain/entities/requirement.dart';
 
 part 'curriculum.freezed.dart';
 part 'curriculum.g.dart';

@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:tanni_simulator/infrastructure/models/course.dart';
+import 'package:tanni_simulator/domain/entities/course.dart';
 
 part 'category.freezed.dart';
 part 'category.g.dart';
