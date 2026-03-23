@@ -11,6 +11,12 @@ CreditCalculatorService creditCalculatorService(Ref ref) {
 class CreditCalculatorService {
   const CreditCalculatorService();
 
+  List<CourseModel> getEarnedCredits(List<CourseModel> courses) {
+    return courses
+    .where((course) => course.isCompleted)
+    .toList();
+  }
+
   int calculateTotal(List<CourseModel> courses) {
     return courses
     .where((course) => course.isCompleted)
