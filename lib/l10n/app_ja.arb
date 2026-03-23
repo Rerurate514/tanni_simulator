@@ -21,6 +21,16 @@
     "label_credit_progress": "全体の修得状況",
     "status_cleared": "達成",
     "status_not_cleared": "未達成",
+    "kamoku_count": "({count}科目)",
+    "@kamoku_count": {
+        "description": "学期ごとの科目数を表示するラベル",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "10"
+            }
+        }
+    },
 
     "@@curriculum_categories": "カリキュラム区分",
     "category_general": "教養教育科目",
