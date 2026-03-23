@@ -1,5 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tanni_simulator/application/usecase/loading_curriculum_usecase.dart';
+import 'package:tanni_simulator/domain/constants/category_type.dart';
 import 'package:tanni_simulator/domain/entities/course.dart';
 import 'package:tanni_simulator/domain/entities/curriculum.dart';
 
@@ -15,7 +16,10 @@ class CourseListNotifier extends _$CourseListNotifier {
       data: (CurriculumModel? data) {
         if(data == null) return [];
 
-        return [...data.universityCurriculum[0].courses, ...data.universityCurriculum[1].courses];
+        return [
+          ...data.universityCurriculum[CategoryType.professional.index].courses, 
+          ...data.universityCurriculum[CategoryType.general.index].courses
+        ];
       },
       orElse: () => []
     );

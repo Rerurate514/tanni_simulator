@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tanni_simulator/core/utils/term_ex.dart';
+import 'package:tanni_simulator/domain/constants/category_type.dart';
 import 'package:tanni_simulator/domain/entities/category.dart';
 import 'package:tanni_simulator/domain/entities/course.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
@@ -21,8 +22,8 @@ class _CurriculumCategoriesState extends ConsumerState<CurriculumTableCategories
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context);
-    final prod = widget.categories[0];
-    final gen = widget.categories[1];
+    final prod = widget.categories[CategoryType.professional.index];
+    final gen = widget.categories[CategoryType.general.index];
 
     return CustomScrollView(
       slivers: [
