@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tanni_simulator/domain/entities/course.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
 
-class CurriculumTableCard extends StatelessWidget {
+class CurriculumTableCard extends HookConsumerWidget {
   const CurriculumTableCard({super.key, required this.courseModel});
 
   final CourseModel courseModel;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final isRequired = courseModel.isRequired;
     final primaryColor = isRequired ? theme.colorScheme.error : theme.colorScheme.primary;
 
+    final isSelected = useState(false);
+
     return Card(
-      elevation: 0,
+      elevation: 2,
+      color: isSelected.value ? theme.secondaryHeaderColor : theme.cardColor,
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
@@ -23,7 +28,7 @@ class CurriculumTableCard extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          // 詳細表示や編集などのアクション
+          isSelected.value = !isSelected.value;
         },
         child: Padding(
           padding: const EdgeInsets.all(12.0),
