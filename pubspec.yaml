@@ -28,6 +28,7 @@ dependencies:
   fl_chart: ^0.70.2
   percent_indicator: ^4.2.3
   logger: ^2.5.0
+  standalone_application_updater: ^0.0.1
 
 dev_dependencies:
   flutter_test:
