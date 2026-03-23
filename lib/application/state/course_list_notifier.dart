@@ -24,7 +24,6 @@ class CourseListNotifier extends _$CourseListNotifier {
   void toggle(CourseModel targetModel) {
     state = state.map((course) {
       if(targetModel.id == course.id) {
-        print(targetModel.name);
         return course.copyWith(isCompleted: !course.isCompleted);
       }
       return course;
