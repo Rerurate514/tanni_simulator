@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tanni_simulator/domain/entities/course.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
+import 'package:tanni_simulator/presentation/pages/home/components/credit_required_chip.dart';
 
 class CurriculumTableCard extends HookConsumerWidget {
   const CurriculumTableCard({super.key, required this.courseModel});
@@ -14,7 +15,6 @@ class CurriculumTableCard extends HookConsumerWidget {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final isRequired = courseModel.isRequired;
-    final primaryColor = isRequired ? theme.colorScheme.error : theme.colorScheme.primary;
 
     final isSelected = useState(false);
 
@@ -66,29 +66,11 @@ class CurriculumTableCard extends HookConsumerWidget {
                     ],
                   ),
                   
-                  if (isRequired) _buildRequiredChip(l10n, primaryColor)
+                  if (isRequired) CreditRequiredChip()
                 ],
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildRequiredChip(AppLocalizations l10n, Color primaryColor) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-      decoration: BoxDecoration(
-        color: primaryColor.withAlpha(30),
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Text(
-        l10n.category_required,
-        style: TextStyle(
-          color: primaryColor,
-          fontSize: 10,
-          fontWeight: FontWeight.bold,
         ),
       ),
     );
