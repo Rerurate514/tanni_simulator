@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tanni_simulator/domain/entities/course.dart';
+import 'package:tanni_simulator/l10n/app_localizations.dart';
 
 class CurriculumTableCard extends StatelessWidget {
   const CurriculumTableCard({super.key, required this.courseModel});
@@ -8,6 +9,7 @@ class CurriculumTableCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final isRequired = courseModel.isRequired;
     final primaryColor = isRequired ? theme.colorScheme.error : theme.colorScheme.primary;
@@ -51,7 +53,7 @@ class CurriculumTableCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        '${courseModel.credits} 単位',
+                        l10n.tanni(courseModel.credits),
                         style: theme.textTheme.labelMedium?.copyWith(
                           color: theme.hintColor,
                         ),
@@ -67,7 +69,7 @@ class CurriculumTableCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(
-                        '必修',
+                        l10n.category_required,
                         style: TextStyle(
                           color: primaryColor,
                           fontSize: 10,

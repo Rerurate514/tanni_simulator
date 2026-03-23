@@ -63,5 +63,15 @@
     "btn_close": "閉じる",
 
     "@@common": "共通部品",
-    "nendo": "年度"
+    "nendo": "年度",
+    "tanni": "{credit}単位",
+    "@tanni": {
+        "description": "単位を表示",
+        "placeholders": {
+            "credit": {
+                "type": "int",
+                "example": "10"
+            }
+        }
+    }
 }
