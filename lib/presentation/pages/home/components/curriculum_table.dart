@@ -26,7 +26,7 @@ class _CurriculumTableState extends ConsumerState<CurriculumTable> {
         if(model == null) return Text(l10n.msg_select_curriculum_first);
         return Column(
           children: [
-            CurriculumSummary(metadata: model.metadata),
+            CurriculumSummary(curriculum: model),
             AppGap.s(),
             Expanded(child: CurriculumTableCategories(categories: model.universityCurriculum))
           ],

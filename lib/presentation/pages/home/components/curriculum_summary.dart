@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:tanni_simulator/domain/entities/metadata.dart';
+import 'package:tanni_simulator/domain/entities/curriculum.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
+import 'package:tanni_simulator/presentation/pages/home/providers/total_credit_provider.dart';
 import 'package:tanni_simulator/presentation/widgets/app_gap.dart';
 
-class CurriculumSummary extends StatelessWidget {
-  const CurriculumSummary({super.key, required this.metadata});
+class CurriculumSummary extends HookConsumerWidget {
+  const CurriculumSummary({super.key, required this.curriculum});
 
-  final MetadataModel metadata;
+  final CurriculumModel curriculum;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context);
+    final totalCredit = ref.watch(totalCreditProvider);
 
     return Card(
       elevation: 0,
@@ -27,7 +30,7 @@ class CurriculumSummary extends StatelessWidget {
           children: [
             buildHeader(theme, l10n),
             AppGap.s(),
-            buildProgress(theme, l10n)
+            buildProgress(theme, l10n, totalCredit, 0)
           ],
         ),
       ),
@@ -43,7 +46,7 @@ class CurriculumSummary extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                metadata.university,
+                curriculum.metadata.university,
                 style: theme.textTheme.labelLarge?.copyWith(
                   color: theme.colorScheme.primary,
                   fontWeight: FontWeight.bold,
@@ -51,7 +54,7 @@ class CurriculumSummary extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                metadata.department,
+                curriculum.metadata.department,
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -67,7 +70,7 @@ class CurriculumSummary extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
           child: Text(
-            '${metadata.applicableYear}${l10n.nendo}',
+            '${curriculum.metadata.applicableYear}${l10n.nendo}',
             style: TextStyle(
               color: theme.colorScheme.onPrimaryContainer,
               fontWeight: FontWeight.bold,
@@ -78,7 +81,7 @@ class CurriculumSummary extends StatelessWidget {
     );
   }
 
-  Widget buildProgress(ThemeData theme, AppLocalizations l10n) {
+  Widget buildProgress(ThemeData theme, AppLocalizations l10n, int totalCredits, int targetCredits) {
     return Column(
       children: [
         Text(
@@ -90,9 +93,9 @@ class CurriculumSummary extends StatelessWidget {
           animation: true,
           lineHeight: 24.0,
           animationDuration: 800,
-          percent: 0.65, // TODO: 単位習得計算結果の格納
-          center: const Text(
-            '80 / 124 単位',
+          percent: 0.65,
+          center: Text(
+            l10n.tanni_count(totalCredits, targetCredits),
             style: TextStyle(
               fontWeight: FontWeight.bold, 
               fontSize: 12,
