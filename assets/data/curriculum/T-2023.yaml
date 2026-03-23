@@ -103,7 +103,7 @@ university_curriculum:
         credits: 2
         term: 2
 
-        - id: "prof-16"
+      - id: "prof-16"
         name: "アルゴリズムとデータ構造及び同演習"
         is_required: true
         credits: 3
