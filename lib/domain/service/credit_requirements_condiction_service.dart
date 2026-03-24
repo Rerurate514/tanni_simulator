@@ -1,15 +1,10 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tanni_simulator/domain/constants/category_type.dart';
+import 'package:tanni_simulator/domain/constants/requirement_status.dart';
 import 'package:tanni_simulator/domain/entities/course.dart';
 import 'package:tanni_simulator/domain/entities/requirement.dart';
 
 part 'credit_requirements_condiction_service.g.dart';
-
-enum RequirementStatus {
-  fulfilled,
-  professionalCreditShortage,//専門単位不足
-  generalCreditShortage,//教養単位不足
-}
 
 @riverpod
 CreditRequirementsCondictionService creditRequirementsCondictionService(Ref ref) {
