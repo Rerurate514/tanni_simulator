@@ -12,9 +12,7 @@ class CheckRequirementStatus extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    if (requirementStatus == RequirementStatus.fulfilled) {
-      return const SizedBox.shrink();
-    }
+    if(requirementStatus == RequirementStatus.notExist) return SizedBox.shrink();
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tanni_simulator/domain/constants/app_color_scheme.dart';
 import 'package:tanni_simulator/domain/entities/course.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
 import 'package:tanni_simulator/presentation/widgets/app_chip.dart';
@@ -12,12 +13,19 @@ class MissingCourses extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    if (missingCourses.isEmpty) {
-      return const SizedBox.shrink();
-    }
-
-    final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+
+    if (missingCourses.isEmpty) {
+      return AppChip(
+        label: l10n.promotion_earned_label,
+        color: theme.colorScheme.success,
+        fontSize: 11,
+        borderRadius: 8,
+        backgroundOpacity: 0.1,
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      );
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,

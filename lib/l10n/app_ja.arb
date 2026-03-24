@@ -63,6 +63,7 @@
     "promotion_earned_professional_credit": "進級または卒業に関わる専門教育科目における最低単位数を満たしています。",
     "promotion_earned_general_credit": "進級または卒業に関わる教養教育科目における最低単位数を満たしています。",
     "promotion_earned_both_credit": "進級または卒業に関わる専門教育科目かつ教養教育科目における最低単位数を満たしています。",
+    "promotion_earned_label": "必修科目をすべて履修しました。",
 
     "@@curriculum_categories": "カリキュラム区分",
     "category_general": "教養教育科目",

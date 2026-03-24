@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tanni_simulator/application/state/selected_requirement_notifier.dart';
+import 'package:tanni_simulator/domain/constants/requirement_status.dart';
 import 'package:tanni_simulator/domain/entities/curriculum.dart';
 import 'package:tanni_simulator/presentation/pages/home/components/summary/check_requirement_status.dart';
 import 'package:tanni_simulator/presentation/pages/home/components/summary/is_requirement_met.dart';
@@ -26,19 +27,19 @@ class RequirementsConditions extends HookConsumerWidget {
     ));
 
     return Card(
-      margin: const EdgeInsets.all(16),
+      margin: const EdgeInsets.all(8),
       child: Padding(
-        padding: EdgeInsetsGeometry.all(8),
+        padding: EdgeInsetsGeometry.all(16),
         child: Column(
           children: [
             IsRequirementMet(
               isRequirementMet: isRequirementMet
             ),
-            AppGap.s(),
+            if(isRequirementMet) AppGap.s(),
             CheckRequirementStatus(
               requirementStatus: requirementStatus
             ),
-            AppGap.s(),
+            if(requirementStatus != RequirementStatus.notExist) AppGap.s(),
             MissingCourses(
               missingCourses: missingCourses
             )

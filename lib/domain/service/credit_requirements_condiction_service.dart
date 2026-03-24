@@ -32,9 +32,10 @@ class CreditRequirementsCondictionService {
     return switchByCategoriesLength<RequirementStatus>(
       requirement, 
       () {
-        return RequirementStatus.fulfilled;
+        return RequirementStatus.notExist;
       }, 
       (category, categoryType) {
+        if(category.minCredits == 0) return RequirementStatus.notExist;
         switch(categoryType){
           case CategoryType.professional: {
             final isExceedProfCredits = profCredits < category.minCredits;
@@ -46,7 +47,7 @@ class CreditRequirementsCondictionService {
           }
         }
 
-        return RequirementStatus.fulfilled;
+        return RequirementStatus.notExist;
       }, 
       (RequirementCategoryModel prof, RequirementCategoryModel gen) {
         final isExceedProfCredits = profCredits < prof.minCredits;
