@@ -6,7 +6,7 @@ T switchByCategoriesLength<T>(
     RequirementModel requirement,
     T Function() onNoCategory,
     T Function(RequirementCategoryModel category, CategoryType categoryType) onOneCategory,
-    T Function(RequirementCategoryModel prof, RequirementCategoryModel gen) onTwoCategory,
+    T Function(RequirementCategoryModel prof, RequirementCategoryModel gen) onTwoCategories,
   ) {
     final categories = requirement.categories;
 
@@ -16,7 +16,7 @@ T switchByCategoriesLength<T>(
       _ => () {
         final prof = categories.firstWhere((c) => c.category == CategoryType.professional);
         final gen = categories.firstWhere((c) => c.category == CategoryType.general);
-        return onTwoCategory(prof, gen);
+        return onTwoCategories(prof, gen);
       }(),
     };
   }
