@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:tanni_simulator/presentation/pages/home/components/curriculum_selector.dart';
-import 'package:tanni_simulator/presentation/pages/home/components/curriculum_table.dart';
+import 'package:tanni_simulator/presentation/pages/home/components/selector/curriculum_selector.dart';
+import 'package:tanni_simulator/presentation/pages/home/components/table/curriculum_table.dart';
 import 'package:tanni_simulator/presentation/widgets/app_gap.dart';
 import 'package:tanni_simulator/presentation/widgets/page_wrapper.dart';
 
