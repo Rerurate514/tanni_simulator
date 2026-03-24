@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tanni_simulator/application/state/course_list_notifier.dart';
 import 'package:tanni_simulator/domain/entities/course.dart';
@@ -19,11 +18,10 @@ class CurriculumTableCard extends HookConsumerWidget {
     final isRequired = courseModel.isRequired;
 
     final isCreditsCompleted = ref.watch(isCreditCompletedProvider(courseModel));
-    final isSelected = useState(isCreditsCompleted);
 
     return Card(
       elevation: 2,
-      color: isSelected.value ? theme.secondaryHeaderColor : theme.cardColor,
+      color: isCreditsCompleted ? theme.secondaryHeaderColor : theme.cardColor,
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
@@ -31,8 +29,6 @@ class CurriculumTableCard extends HookConsumerWidget {
       ),
       child: InkWell(
         onTap: () {
-          isSelected.value = !isSelected.value;
-
           ref.read(courseListProvider.notifier).toggle(courseModel);
         },
         child: Padding(
