@@ -30,6 +30,9 @@ class CreditRequirementsCondictionService {
     final prof = requirement.categories[CategoryType.professional.index];
     final gen = requirement.categories[CategoryType.general.index];
 
+    if(profCredits < prof.minCredits && genCredits < gen.minCredits) {
+      return RequirementStatus.bothCreditShortage;
+    }
     if (profCredits < prof.minCredits) {
       return RequirementStatus.professionalCreditShortage;
     }
