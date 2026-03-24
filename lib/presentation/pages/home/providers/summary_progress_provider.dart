@@ -13,7 +13,7 @@ double summaryPercentage(Ref ref) {
   final target = ref.watch(selectedRequirementProvider);
   final service = ref.watch(creditCalculatorServiceProvider);
 
-  if(target == null) return 0.0;
+  if(target == null || target.totalCreditsRequired == null) return 0.0;
   return service.calculatePercentage(total, target.totalCreditsRequired!);
 }
 
