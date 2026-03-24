@@ -18,32 +18,32 @@ class CheckRequirementStatus extends HookConsumerWidget {
       return const SizedBox.shrink();
     }
 
-    final (label, color) = switch (requirementStatus) {
-      RequirementStatus.bothCreditShortage => (
-          l10n.promotion_not_earned_both_credit,
-          theme.colorScheme.error,
-        ),
-      RequirementStatus.professionalCreditShortage => (
+    final labels = switch (requirementStatus) {
+      RequirementStatus.bothCreditShortage => [
           l10n.promotion_not_earned_professional_credit,
-          theme.colorScheme.error,
-        ),
-      RequirementStatus.generalCreditShortage => (
           l10n.promotion_not_earned_general_credit,
-          theme.colorScheme.error,
-        ),
-      _ => (
-          l10n.promotion_not_earned_credits,
-          theme.colorScheme.error,
-        ),
+        ],
+      RequirementStatus.professionalCreditShortage => [
+          l10n.promotion_not_earned_professional_credit,
+        ],
+      RequirementStatus.generalCreditShortage => [
+          l10n.promotion_not_earned_general_credit,
+        ],
+      _ => [l10n.promotion_not_earned_credits],
     };
 
-    return AppChip(
-      label: label,
-      color: color,
-      fontSize: 12,
-      borderRadius: 6,
-      backgroundOpacity: 0.15,
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+    return Wrap(
+      alignment: WrapAlignment.center,
+      spacing: 8.0,
+      runSpacing: 8.0,
+      children: labels.map((label) => AppChip(
+        label: label,
+        color: theme.colorScheme.error,
+        fontSize: 12,
+        borderRadius: 6,
+        backgroundOpacity: 0.15,
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      )).toList(),
     );
   }
 }
