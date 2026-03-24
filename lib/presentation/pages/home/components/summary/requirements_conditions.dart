@@ -7,7 +7,7 @@ import 'package:tanni_simulator/presentation/pages/home/components/summary/check
 import 'package:tanni_simulator/presentation/pages/home/components/summary/is_requirement_met.dart';
 import 'package:tanni_simulator/presentation/pages/home/components/summary/missing_courses.dart';
 import 'package:tanni_simulator/application/requirement/requirement_conditions_providers.dart';
-import 'package:tanni_simulator/presentation/pages/home/providers/missing_courses_list_provider.dart';
+import 'package:tanni_simulator/application/requirement/missing_courses_list_provider.dart';
 import 'package:tanni_simulator/presentation/widgets/app_gap.dart';
 
 class RequirementsConditions extends HookConsumerWidget {

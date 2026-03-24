@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tanni_simulator/application/state/selected_requirement_notifier.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
-import 'package:tanni_simulator/presentation/pages/home/providers/total_credit_provider.dart';
+import 'package:tanni_simulator/application/requirement/total_credit_provider.dart';
 
 part 'summary_progress_provider.g.dart';
 

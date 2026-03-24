@@ -4,9 +4,9 @@ import 'package:tanni_simulator/application/state/selected_requirement_notifier.
 import 'package:tanni_simulator/domain/entities/curriculum.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
 import 'package:tanni_simulator/presentation/pages/home/components/summary/requirements_conditions.dart';
-import 'package:tanni_simulator/presentation/pages/home/providers/all_credits_provider.dart';
+import 'package:tanni_simulator/application/requirement/all_credits_provider.dart';
 import 'package:tanni_simulator/presentation/pages/home/providers/summary_progress_provider.dart';
-import 'package:tanni_simulator/presentation/pages/home/providers/total_credit_provider.dart';
+import 'package:tanni_simulator/application/requirement/total_credit_provider.dart';
 import 'package:tanni_simulator/presentation/widgets/app_gap.dart';
 import 'package:tanni_simulator/presentation/widgets/app_progress_bar.dart';
 
