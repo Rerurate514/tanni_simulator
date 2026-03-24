@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 import 'package:tanni_simulator/application/state/selected_requirement_notifier.dart';
 import 'package:tanni_simulator/domain/entities/curriculum.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
