@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:tanni_simulator/domain/constants/category_type.dart';
 
 part 'requirement_category.freezed.dart';
 part 'requirement_category.g.dart';
@@ -16,6 +17,7 @@ sealed class RequirementCategoryModel with _$RequirementCategoryModel {
     List<String> mustHaveCourseIds,
     @JsonKey(name: 'required_is_required_credits') 
     int? requiredIsRequiredCredits,
+    required CategoryType category
   }) = _RequirementCategoryModel;
 
   factory RequirementCategoryModel.fromJson(Map<String, dynamic> json) =>
