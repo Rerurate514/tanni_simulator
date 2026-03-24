@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:tanni_simulator/application/state/selected_requirement_notifier.dart';
 import 'package:tanni_simulator/domain/entities/curriculum.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
 import 'package:tanni_simulator/presentation/pages/home/components/summary/requirements_conditions.dart';
 import 'package:tanni_simulator/presentation/pages/home/providers/summary_progress_provider.dart';
+import 'package:tanni_simulator/presentation/pages/home/providers/total_credit_provider.dart';
 import 'package:tanni_simulator/presentation/widgets/app_gap.dart';
+import 'package:tanni_simulator/presentation/widgets/app_progress_bar.dart';
 
 class CurriculumSummary extends HookConsumerWidget {
   const CurriculumSummary({super.key, required this.curriculum});
@@ -17,7 +20,8 @@ class CurriculumSummary extends HookConsumerWidget {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context);
     final label = ref.watch(summaryLabelProvider(context));
-    final percent = ref.watch(summaryPercentageProvider);
+    final total = ref.watch(totalCreditProvider);
+    final target = ref.watch(selectedRequirementProvider)?.totalCreditsRequired ?? 0;
 
     return Card(
       elevation: 0,
@@ -35,15 +39,9 @@ class CurriculumSummary extends HookConsumerWidget {
             AppGap.xs(),
             Text(label, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
             AppGap.xs(),
-            LinearPercentIndicator(
-              animation: true,
-              animateFromLastPercent: true,
-              lineHeight: 24.0,
-              percent: percent,
-              barRadius: const Radius.circular(12),
-              progressColor: theme.colorScheme.primary,
-              backgroundColor: theme.colorScheme.surfaceContainerHighest,
-              padding: EdgeInsets.zero,
+            AppProgressBar(
+              total: total, 
+              target: target
             ),
             RequirementsConditions(curriculum: curriculum),
           ],
