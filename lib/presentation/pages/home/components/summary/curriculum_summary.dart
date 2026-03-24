@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tanni_simulator/application/state/selected_requirement_notifier.dart';
+import 'package:tanni_simulator/core/utils/join_category_course.dart';
+import 'package:tanni_simulator/domain/entities/course.dart';
 import 'package:tanni_simulator/domain/entities/curriculum.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
 import 'package:tanni_simulator/presentation/pages/home/components/summary/requirements_conditions.dart';
-import 'package:tanni_simulator/application/requirement/all_credits_provider.dart';
 import 'package:tanni_simulator/presentation/pages/home/providers/summary_progress_provider.dart';
 import 'package:tanni_simulator/application/requirement/total_credit_provider.dart';
 import 'package:tanni_simulator/presentation/widgets/app_gap.dart';
@@ -21,7 +22,7 @@ class CurriculumSummary extends HookConsumerWidget {
     final l10n = AppLocalizations.of(context);
     final label = ref.watch(summaryLabelProvider(context));
     final total = ref.watch(totalCreditProvider);
-    final allCredits = ref.watch(allCreditsProvider);
+    final allCredits = joinCategoryAllCourse(curriculum).allCredits;
     final target = ref.watch(selectedRequirementProvider)?.totalCreditsRequired ?? allCredits;
 
     return Card(

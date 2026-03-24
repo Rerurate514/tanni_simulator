@@ -6,6 +6,8 @@ part 'category.g.dart';
 
 @freezed
 sealed class CategoryModel with _$CategoryModel {
+  const CategoryModel._();
+  
   const factory CategoryModel({
     required String category,
     required List<CourseModel> courses,

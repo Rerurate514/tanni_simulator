@@ -18,3 +18,7 @@ sealed class CourseModel with _$CourseModel {
 
   factory CourseModel.fromJson(Map<String, dynamic> json) => _$CourseModelFromJson(json);
 }
+
+extension CourseListEx on List<CourseModel> {
+  int get allCredits => fold(0, (sum, course) => sum + course.credits);
+}
