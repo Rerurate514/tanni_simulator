@@ -9,10 +9,8 @@ sealed class CreditLimitGroupModel with _$CreditLimitGroupModel {
     required String id,
     required String name,
     required String description,
-    @JsonKey(name: 'course_ids') 
-    required List<String> courseIds,
-    @JsonKey(name: 'max_credits_allowed') 
-    required int maxCreditsAllowed,
+    @JsonKey(name: 'course_ids') required List<String> courseIds,
+    @JsonKey(name: 'max_credits_allowed') required int maxCreditsAllowed,
   }) = _CreditLimitGroupModel;
 
   factory CreditLimitGroupModel.fromJson(Map<String, dynamic> json) =>

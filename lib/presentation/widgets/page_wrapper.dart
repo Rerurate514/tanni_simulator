@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 
 class PageWrapper extends StatelessWidget {
   const PageWrapper({
-    super.key,
-    required this.child,
-    this.padding = const EdgeInsets.all(16.0),
+    required this.child, super.key,
+    this.padding = const EdgeInsets.all(16),
     this.appBar,
     this.floatingActionButton,
     this.bottomNavigationBar,

@@ -11,5 +11,6 @@ sealed class MetadataModel with _$MetadataModel {
     @JsonKey(name: 'applicable_year') required int applicableYear,
   }) = _MetadataModel;
 
-  factory MetadataModel.fromJson(Map<String, dynamic> json) => _$MetadataModelFromJson(json);
+  factory MetadataModel.fromJson(Map<String, dynamic> json) =>
+      _$MetadataModelFromJson(json);
 }

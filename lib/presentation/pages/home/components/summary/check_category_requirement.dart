@@ -6,7 +6,12 @@ import 'package:tanni_simulator/presentation/widgets/app_gap.dart';
 import 'package:tanni_simulator/presentation/widgets/app_progress_bar.dart';
 
 class CheckCategoryRequirement extends HookConsumerWidget {
-  const CheckCategoryRequirement({super.key, required this.total, required this.target, required this.chip});
+  const CheckCategoryRequirement({
+    required this.total,
+    required this.target,
+    required this.chip,
+    super.key,
+  });
 
   final int total;
   final int target;
@@ -15,20 +20,17 @@ class CheckCategoryRequirement extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
-    
+
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         SizedBox(
           width: 100,
           child: Text(
             l10n.tanni_count(total, target),
-            style: TextStyle(
-              fontWeight: FontWeight.bold
-            ),
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
-        AppGap.s(),
+        const AppGap.s(),
         Expanded(
           flex: 3,
           child: AppProgressBar(
@@ -36,11 +38,10 @@ class CheckCategoryRequirement extends HookConsumerWidget {
             target: target,
           ),
         ),
-        AppGap.s(),
+        const AppGap.s(),
         Expanded(
-          flex: 1,
           child: chip,
-        )
+        ),
       ],
     );
   }

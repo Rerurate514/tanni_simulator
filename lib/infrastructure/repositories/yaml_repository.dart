@@ -1,8 +1,8 @@
+import 'package:flutter/services.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tanni_simulator/core/utils/category_to_yaml.dart';
 import 'package:tanni_simulator/core/utils/yaml_to_map.dart';
 import 'package:tanni_simulator/domain/repositories/i_yaml_repository.dart';
-import 'package:flutter/services.dart';
 import 'package:yaml/yaml.dart';
 
 part 'yaml_repository.g.dart';

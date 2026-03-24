@@ -5,7 +5,7 @@ import 'package:tanni_simulator/domain/entities/requirement.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
 
 class PromotionGateSelector extends HookConsumerWidget {
-  const PromotionGateSelector({super.key, required this.requirements});
+  const PromotionGateSelector({required this.requirements, super.key});
   final List<RequirementModel> requirements;
 
   @override

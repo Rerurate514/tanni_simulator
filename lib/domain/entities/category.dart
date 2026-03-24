@@ -6,12 +6,12 @@ part 'category.g.dart';
 
 @freezed
 sealed class CategoryModel with _$CategoryModel {
-  const CategoryModel._();
-  
   const factory CategoryModel({
     required String category,
     required List<CourseModel> courses,
   }) = _CategoryModel;
+  const CategoryModel._();
 
-  factory CategoryModel.fromJson(Map<String, dynamic> json) => _$CategoryModelFromJson(json);
+  factory CategoryModel.fromJson(Map<String, dynamic> json) =>
+      _$CategoryModelFromJson(json);
 }

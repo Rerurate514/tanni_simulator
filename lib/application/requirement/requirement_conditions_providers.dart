@@ -21,12 +21,15 @@ bool isRequirementMet(Ref ref, RequirementModel selectedRequirement) {
 
   return rcjService.isRequirementMet(
     selectedRequirement,
-    ccService.calculateTotal(courses)
+    ccService.calculateTotal(courses),
   );
 }
 
 @riverpod
-RequirementStatus requirementStatus(Ref ref, RequirementModel selectedRequirement) {
+RequirementStatus requirementStatus(
+  Ref ref,
+  RequirementModel selectedRequirement,
+) {
   final ccService = ref.watch(creditCalculatorServiceProvider);
   final rcjService = ref.watch(requirementCreditJudgeServiceProvider);
   final courses = ref.watch(courseListProvider);
@@ -34,34 +37,42 @@ RequirementStatus requirementStatus(Ref ref, RequirementModel selectedRequiremen
   return rcjService.checkRequirementStatus(
     selectedRequirement,
     ccService.getEarnedCategoryCredits(courses, CategoryType.professional),
-    ccService.getEarnedCategoryCredits(courses, CategoryType.general)
+    ccService.getEarnedCategoryCredits(courses, CategoryType.general),
   );
 }
 
 @riverpod
-List<CourseModel> mandatoryCourses(Ref ref, RequirementModel selectedRequirement, CurriculumModel curriculum) {
+List<CourseModel> mandatoryCourses(
+  Ref ref,
+  RequirementModel selectedRequirement,
+  CurriculumModel curriculum,
+) {
   final ccService = ref.watch(creditCalculatorServiceProvider);
   final rcaService = ref.watch(requirementCourseAnalystServiceProvider);
   final courses = ref.watch(courseListProvider);
   final earned = ccService.getEarnedCredits(courses);
-  
+
   return rcaService.getMissingCourses(
     selectedRequirement,
     earned,
-    joinCategoryAllCourse(curriculum)
+    joinCategoryAllCourse(curriculum),
   );
 }
 
 @riverpod
-List<CourseModel>? checkAllRequiredSubjectsMet(Ref ref, RequirementModel selectedRequirement, CurriculumModel curriculum) {
+List<CourseModel>? checkAllRequiredSubjectsMet(
+  Ref ref,
+  RequirementModel selectedRequirement,
+  CurriculumModel curriculum,
+) {
   final ccService = ref.watch(creditCalculatorServiceProvider);
   final rcaService = ref.watch(requirementCourseAnalystServiceProvider);
   final courses = ref.watch(courseListProvider);
   final earned = ccService.getEarnedCredits(courses);
-  
+
   return rcaService.checkAllRequiredSubjectsMet(
     selectedRequirement,
     earned,
-    joinCategoryAllCourse(curriculum)
+    joinCategoryAllCourse(curriculum),
   );
 }

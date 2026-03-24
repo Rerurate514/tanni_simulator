@@ -6,16 +6,17 @@ import 'package:tanni_simulator/presentation/pages/home/components/summary/check
 import 'package:tanni_simulator/presentation/widgets/app_gap.dart';
 
 class CheckRequirementStatus extends HookConsumerWidget {
-  const CheckRequirementStatus({super.key, required this.requirementStatus});
+  const CheckRequirementStatus({required this.requirementStatus, super.key});
   
   final RequirementStatus requirementStatus;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    if(requirementStatus == RequirementStatus.notExist) return SizedBox.shrink();
+    if(requirementStatus == RequirementStatus.notExist) {
+      return const SizedBox.shrink();
+    }
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+    return const Column(
       children: [
         CheckProfessionalRequirement(),
         AppGap.s(),

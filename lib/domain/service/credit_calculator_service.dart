@@ -13,21 +13,22 @@ class CreditCalculatorService {
   const CreditCalculatorService();
 
   List<CourseModel> getEarnedCredits(List<CourseModel> courses) {
-    return courses
-    .where((course) => course.isCompleted)
-    .toList();
+    return courses.where((course) => course.isCompleted).toList();
   }
 
-  int getEarnedCategoryCredits(List<CourseModel> courses, CategoryType categoryType) {
+  int getEarnedCategoryCredits(
+    List<CourseModel> courses,
+    CategoryType categoryType,
+  ) {
     return courses
-      .where((course) => course.category == categoryType)
-      .where((course) => course.isCompleted)
-      .fold(0, (sum, course) => sum + course.credits);
+        .where((course) => course.category == categoryType)
+        .where((course) => course.isCompleted)
+        .fold(0, (sum, course) => sum + course.credits);
   }
 
   int calculateTotal(List<CourseModel> courses) {
     return courses
-    .where((course) => course.isCompleted)
-    .fold(0, (sum, course) => sum + course.credits);
+        .where((course) => course.isCompleted)
+        .fold(0, (sum, course) => sum + course.credits);
   }
 }

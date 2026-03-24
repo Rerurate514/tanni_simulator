@@ -12,11 +12,12 @@ sealed class CourseModel with _$CourseModel {
     @JsonKey(name: 'is_required') required bool isRequired,
     required int credits,
     required int term,
+    required CategoryType category,
     @Default(false) bool isCompleted,
-    required CategoryType category
   }) = _CourseModel;
 
-  factory CourseModel.fromJson(Map<String, dynamic> json) => _$CourseModelFromJson(json);
+  factory CourseModel.fromJson(Map<String, dynamic> json) =>
+      _$CourseModelFromJson(json);
 }
 
 extension CourseListEx on List<CourseModel> {

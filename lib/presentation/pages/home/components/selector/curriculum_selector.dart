@@ -9,8 +9,10 @@ class CurriculumSelector extends StatefulHookConsumerWidget {
   const CurriculumSelector({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _CurriculumPulldownMenuState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _CurriculumPulldownMenuState();
 }
+
 class _CurriculumPulldownMenuState extends ConsumerState<CurriculumSelector> {
   @override
   Widget build(BuildContext context) {
@@ -30,13 +32,15 @@ class _CurriculumPulldownMenuState extends ConsumerState<CurriculumSelector> {
           child: Text(type.label),
         );
       }).toList(),
-      onChanged: (CurriculumType? newType) {
-        if(newType == null) return;
+      onChanged: (newType) async {
+        if (newType == null) return;
 
         selectedType.value = newType;
 
-        ref.read(loadingCurriculumUsecaseProvider.notifier).selectCurriculum(newType);
-      }
+        await ref
+          .read(loadingCurriculumUsecaseProvider.notifier)
+          .selectCurriculum(newType);
+      },
     );
   }
 }
