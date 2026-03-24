@@ -2,8 +2,7 @@ include: package:very_good_analysis/analysis_options.yaml
 
 linter: 
   rules:
-    - lines_longer_than_80_chars: false
-    - sort_pub_dependencies: false
+
 
 analyzer:
   errors:
@@ -12,6 +11,7 @@ analyzer:
     one_member_abstracts: ignore
     public_member_api_docs: ignore
     use_setters_to_change_properties: ignore
+    sort_pub_dependencies: ignore
   exclude:
     - "**/*.g.dart"
     - "**/*.freezed.dart"
