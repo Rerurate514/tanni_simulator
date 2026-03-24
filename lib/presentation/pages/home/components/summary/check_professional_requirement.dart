@@ -14,9 +14,11 @@ class CheckProfessionalRequirement extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
+    
+    const notRequiredEarnCredit = 0;
 
     final progress = ref.watch(categoryCreditsEarnedProvider(CategoryType.professional));
-    if(progress == null) return SizedBox.shrink();
+    if(progress == null || progress.$2 == notRequiredEarnCredit) return SizedBox.shrink();
 
     final (total, target) = progress;
     final isProfessionalRequirementMet = ref.watch(isProfessionalRequirementMetProvider);

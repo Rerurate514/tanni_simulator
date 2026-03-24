@@ -14,8 +14,10 @@ class CheckGeneralRequirement extends HookConsumerWidget {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
 
+    const notRequiredEarnCredit = 0;
+
     final progress = ref.watch(categoryCreditsEarnedProvider(CategoryType.general));
-    if(progress == null) return SizedBox.shrink();
+    if(progress == null || progress.$2 == notRequiredEarnCredit) return SizedBox.shrink();
 
     final (total, target) = progress;
     final isGeneralRequirementMet = ref.watch(isGeneralRequirementMetProvider);
