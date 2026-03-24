@@ -6,28 +6,35 @@ class AppChip extends StatelessWidget {
     required this.label,
     required this.color,
     this.isVisible = true,
+    this.fontSize = 12.0,
+    this.borderRadius = 4.0,
+    this.backgroundOpacity = 0.12,
+    this.padding = const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
   });
 
   final String label;
   final Color color;
   final bool isVisible;
+  final double fontSize;
+  final double borderRadius;
+  final double backgroundOpacity;
+  final EdgeInsetsGeometry padding;
 
   @override
   Widget build(BuildContext context) {
     if (!isVisible) return const SizedBox.shrink();
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+      padding: padding,
       decoration: BoxDecoration(
-        color: color.withAlpha(30),
-        borderRadius: BorderRadius.circular(4),
-        border: Border.all(color: color.withAlpha(50), width: 0.5),
+        color: color.withOpacity(backgroundOpacity),
+        borderRadius: BorderRadius.circular(borderRadius),
       ),
       child: Text(
         label,
         style: TextStyle(
           color: color,
-          fontSize: 12,
+          fontSize: fontSize,
           fontWeight: FontWeight.bold,
         ),
       ),
