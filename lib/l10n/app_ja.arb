@@ -53,6 +53,7 @@
             }
         }
     },
+    "promotion_not_earned_credits": "進級または卒業にかかわる最低単位数を満たしていません。",
 
     "@@curriculum_categories": "カリキュラム区分",
     "category_general": "教養教育科目",
