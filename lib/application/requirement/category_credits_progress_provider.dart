@@ -4,6 +4,7 @@ import 'package:tanni_simulator/application/state/selected_requirement_notifier.
 import 'package:tanni_simulator/core/utils/switch_by_categories_length.dart';
 import 'package:tanni_simulator/domain/constants/category_type.dart';
 import 'package:tanni_simulator/domain/service/credit_calculator_service.dart';
+import 'package:tanni_simulator/domain/service/requirement_credit_judge_service.dart';
 
 part 'category_credits_progress_provider.g.dart';
 
@@ -13,20 +14,11 @@ bool isProfessionalRequirementMet(Ref ref) {
   if (selectedRequirement == null) return true;
 
   final ccService = ref.watch(creditCalculatorServiceProvider);
+  final rcjService = ref.watch(requirementCreditJudgeServiceProvider);
   final courses = ref.watch(courseListProvider);
   final profCredits = ccService.getEarnedCategoryCredits(courses, CategoryType.professional);
 
-  return switchByCategoriesLength<bool>(
-    selectedRequirement,
-    () => true,
-    (category, type) {
-      if (type != CategoryType.professional) return true;
-      return profCredits >= category.minCredits;
-    },
-    (prof, gen) {
-      return profCredits >= prof.minCredits;
-    },
-  );
+  return rcjService.isProfessionalRequirementMet(ref, selectedRequirement, profCredits);
 }
 
 @riverpod
@@ -35,20 +27,11 @@ bool isGeneralRequirementMet(Ref ref) {
   if (selectedRequirement == null) return true;
 
   final ccService = ref.watch(creditCalculatorServiceProvider);
+  final rcjService = ref.watch(requirementCreditJudgeServiceProvider);
   final courses = ref.watch(courseListProvider);
   final genCredits = ccService.getEarnedCategoryCredits(courses, CategoryType.general);
 
-  return switchByCategoriesLength<bool>(
-    selectedRequirement,
-    () => true,
-    (category, type) {
-      if (type != CategoryType.general) return true;
-      return genCredits >= category.minCredits;
-    },
-    (prof, gen) {
-      return genCredits >= gen.minCredits;
-    },
-  );
+  return rcjService.isGeneralRequirementMet(ref, selectedRequirement, genCredits);
 }
 
 @riverpod

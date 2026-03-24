@@ -7,18 +7,19 @@ import 'package:tanni_simulator/domain/entities/course.dart';
 import 'package:tanni_simulator/domain/entities/curriculum.dart';
 import 'package:tanni_simulator/domain/entities/requirement.dart';
 import 'package:tanni_simulator/domain/service/credit_calculator_service.dart';
-import 'package:tanni_simulator/domain/service/credit_requirements_condiction_service.dart';
+import 'package:tanni_simulator/domain/service/requirement_course_analyst_service.dart';
+import 'package:tanni_simulator/domain/service/requirement_credit_judge_service.dart';
 
 part 'requirement_conditions_providers.g.dart';
 
 @riverpod
 bool isRequirementMet(Ref ref, RequirementModel selectedRequirement) {
   final ccService = ref.watch(creditCalculatorServiceProvider);
-  final crcService = ref.watch(creditRequirementsCondictionServiceProvider);
+  final rcjService = ref.watch(requirementCreditJudgeServiceProvider);
 
   final courses = ref.watch(courseListProvider);
 
-  return crcService.isRequirementMet(
+  return rcjService.isRequirementMet(
     selectedRequirement,
     ccService.calculateTotal(courses)
   );
@@ -27,10 +28,10 @@ bool isRequirementMet(Ref ref, RequirementModel selectedRequirement) {
 @riverpod
 RequirementStatus requirementStatus(Ref ref, RequirementModel selectedRequirement) {
   final ccService = ref.watch(creditCalculatorServiceProvider);
-  final crcService = ref.watch(creditRequirementsCondictionServiceProvider);
+  final rcjService = ref.watch(requirementCreditJudgeServiceProvider);
   final courses = ref.watch(courseListProvider);
 
-  return crcService.checkRequirementStatus(
+  return rcjService.checkRequirementStatus(
     selectedRequirement,
     ccService.getEarnedCategoryCredits(courses, CategoryType.professional),
     ccService.getEarnedCategoryCredits(courses, CategoryType.general)
@@ -40,11 +41,11 @@ RequirementStatus requirementStatus(Ref ref, RequirementModel selectedRequiremen
 @riverpod
 List<CourseModel> mandatoryCourses(Ref ref, RequirementModel selectedRequirement, CurriculumModel curriculum) {
   final ccService = ref.watch(creditCalculatorServiceProvider);
-  final crcService = ref.watch(creditRequirementsCondictionServiceProvider);
+  final rcaService = ref.watch(requirementCourseAnalystServiceProvider);
   final courses = ref.watch(courseListProvider);
   final earned = ccService.getEarnedCredits(courses);
   
-  return crcService.getMissingCourses(
+  return rcaService.getMissingCourses(
     selectedRequirement,
     earned,
     joinCategoryAllCourse(curriculum)
@@ -54,11 +55,11 @@ List<CourseModel> mandatoryCourses(Ref ref, RequirementModel selectedRequirement
 @riverpod
 List<CourseModel>? checkAllRequiredSubjectsMet(Ref ref, RequirementModel selectedRequirement, CurriculumModel curriculum) {
   final ccService = ref.watch(creditCalculatorServiceProvider);
-  final crcService = ref.watch(creditRequirementsCondictionServiceProvider);
+  final rcaService = ref.watch(requirementCourseAnalystServiceProvider);
   final courses = ref.watch(courseListProvider);
   final earned = ccService.getEarnedCredits(courses);
   
-  return crcService.checkAllRequiredSubjectsMet(
+  return rcaService.checkAllRequiredSubjectsMet(
     selectedRequirement,
     earned,
     joinCategoryAllCourse(curriculum)
