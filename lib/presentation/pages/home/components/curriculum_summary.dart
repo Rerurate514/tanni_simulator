@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:tanni_simulator/application/state/selected_requirement_notifier.dart';
 import 'package:tanni_simulator/domain/entities/curriculum.dart';
-import 'package:tanni_simulator/domain/service/credit_calculator_service.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
-import 'package:tanni_simulator/presentation/pages/home/providers/total_credit_provider.dart';
+import 'package:tanni_simulator/presentation/pages/home/providers/summary_progress_provider.dart';
 import 'package:tanni_simulator/presentation/widgets/app_gap.dart';
 
 class CurriculumSummary extends HookConsumerWidget {
@@ -17,9 +15,8 @@ class CurriculumSummary extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context);
-    final calcService = ref.read(creditCalculatorServiceProvider);
-    final totalCredits = ref.watch(totalCreditProvider);
-    final targetCredits = ref.watch(selectedRequirementProvider);
+    final label = ref.watch(summaryLabelProvider(context));
+    final percent = ref.watch(summaryPercentageProvider);
 
     return Card(
       elevation: 0,
@@ -28,22 +25,28 @@ class CurriculumSummary extends HookConsumerWidget {
         side: BorderSide(color: theme.dividerColor.withAlpha(50)),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildHeader(theme, l10n),
             AppGap.s(),
-            buildProgress(
-              theme,
-              l10n, 
-              calcService,
-              totalCredits, 
-              targetCredits?.totalCreditsRequired
-            )
+            Text(l10n.section_total_status, style: theme.textTheme.titleSmall),
+            AppGap.xs(),
+            Text(label, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+            AppGap.xs(),
+            LinearPercentIndicator(
+              animation: true,
+              animateFromLastPercent: true,
+              lineHeight: 24.0,
+              percent: percent,
+              barRadius: const Radius.circular(12),
+              progressColor: theme.colorScheme.primary,
+              backgroundColor: theme.colorScheme.surfaceContainerHighest,
+              padding: EdgeInsets.zero,
+            ),
           ],
         ),
-      ),
+      )
     );
   }
 
@@ -86,73 +89,6 @@ class CurriculumSummary extends HookConsumerWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-        ),
-      ],
-    );
-  }
-
-  Widget buildProgress(ThemeData theme, AppLocalizations l10n, CreditCalculatorService service, int totalCredits, int? targetCredits) {
-    return Column(
-      children: [
-        Text(
-          l10n.section_total_status,
-          style: theme.textTheme.titleSmall,
-        ),
-        AppGap.xs(),
-        targetCredits != null
-        ? _buildRequiredCredits(theme, l10n, service, totalCredits, targetCredits)
-        : _buildUnRequiredCredits(theme, l10n, service, totalCredits, 1000)
-      ],
-    );
-  }
-
-  Widget _buildRequiredCredits(ThemeData theme, AppLocalizations l10n, CreditCalculatorService service, int totalCredits, int targetCredits) {
-    return Column(
-      children: [
-        Text(
-            l10n.tanni_count(totalCredits, targetCredits),
-            style: TextStyle(
-              fontWeight: FontWeight.bold, 
-              fontSize: 12,
-            ),
-        ),
-        AppGap.xs(),
-        LinearPercentIndicator(
-          animation: true,
-          animateFromLastPercent: true,
-          lineHeight: 24.0,
-          animationDuration: 800,
-          percent: service.calculatePercentage(totalCredits, targetCredits),
-          barRadius: const Radius.circular(12),
-          progressColor: theme.colorScheme.primary,
-          backgroundColor: theme.colorScheme.surfaceContainerHighest,
-          padding: EdgeInsets.zero,
-        ),
-      ],
-    );
-  }
-
-  Widget _buildUnRequiredCredits(ThemeData theme, AppLocalizations l10n, CreditCalculatorService service, int totalCredits, int targetCredits) {
-    return Column(
-      children: [
-        Text(
-          l10n.promotion_not_required_credits(totalCredits),
-          style: TextStyle(
-            fontWeight: FontWeight.bold, 
-            fontSize: 12,
-          ),
-        ),
-        AppGap.xs(),
-        LinearPercentIndicator(
-          animation: true,
-          animateFromLastPercent: true,
-          lineHeight: 24.0,
-          animationDuration: 800,
-          percent: service.calculatePercentage(totalCredits, targetCredits),
-          barRadius: const Radius.circular(12),
-          progressColor: theme.colorScheme.primary,
-          backgroundColor: theme.colorScheme.surfaceContainerHighest,
-          padding: EdgeInsets.zero,
         ),
       ],
     );
