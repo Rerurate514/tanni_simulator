@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:tanni_simulator/application/state/selected_requirement_notifier.dart';
 import 'package:tanni_simulator/domain/entities/requirement.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
@@ -12,11 +11,10 @@ class PromotionGateSelector extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
-    
-    final selectedRequirement = useState<RequirementModel?>(null);
+    final selectedRequirement = ref.watch(selectedRequirementProvider);
 
     return DropdownButtonFormField<RequirementModel>(
-      initialValue: selectedRequirement.value,
+      initialValue: selectedRequirement,
       decoration: InputDecoration(
         labelText: l10n.promotion_dropdown_hint,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
@@ -29,7 +27,6 @@ class PromotionGateSelector extends HookConsumerWidget {
         );
       }).toList(),
       onChanged: (value) {
-        selectedRequirement.value = value;
         ref.read(selectedRequirementProvider.notifier).select(value);
       },
     );
