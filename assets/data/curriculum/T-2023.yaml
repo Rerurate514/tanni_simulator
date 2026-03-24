@@ -709,15 +709,17 @@ requirements:
 
   # 卒業要件
   - id: "graduation"
-    title: "卒業に要する最低修得単位数"
+    title: "卒業に要する条件"
     total_credits_required: 124
     categories:
       - category_name: "専門教育科目"
         min_credits: 100
         required_is_required_credits: 56 # 必修56単位
+        check_all_is_required: true
       - category_name: "教養教育科目"
         min_credits: 24
         required_is_required_credits: 8 # 必修8単位
+        check_all_is_required: true
 
 # 排他制御の定義
 # どれかを1科目分のみ選択可能、これは同一時刻に授業が入っているときに有効

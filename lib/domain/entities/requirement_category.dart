@@ -17,7 +17,10 @@ sealed class RequirementCategoryModel with _$RequirementCategoryModel {
     List<String> mustHaveCourseIds,
     @JsonKey(name: 'required_is_required_credits') 
     int? requiredIsRequiredCredits,
-    required CategoryType category
+    required CategoryType category,
+    @JsonKey(name: 'check_all_is_required') 
+    @Default(false)
+    bool isCheckedAllRequired
   }) = _RequirementCategoryModel;
 
   factory RequirementCategoryModel.fromJson(Map<String, dynamic> json) =>
