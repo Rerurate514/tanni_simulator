@@ -1,11 +1,9 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
 import 'package:tanni_simulator/presentation/widgets/app_chip.dart';
 import 'package:tanni_simulator/presentation/widgets/app_gap.dart';
+import 'package:tanni_simulator/presentation/widgets/app_progress_bar.dart';
 
 class CheckCategoryRequirement extends HookConsumerWidget {
   const CheckCategoryRequirement({super.key, required this.total, required this.target, required this.chip});
@@ -17,7 +15,6 @@ class CheckCategoryRequirement extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
-    final theme = Theme.of(context);
     
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -34,15 +31,9 @@ class CheckCategoryRequirement extends HookConsumerWidget {
         AppGap.s(),
         Expanded(
           flex: 3,
-          child: LinearPercentIndicator(
-            animation: true,
-            animateFromLastPercent: true,
-            lineHeight: 24.0,
-            percent: min(total / target, 1),
-            barRadius: const Radius.circular(12),
-            progressColor: theme.colorScheme.primary,
-            backgroundColor: theme.colorScheme.surfaceContainerHighest,
-            padding: EdgeInsets.zero,
+          child: AppProgressBar(
+            total: total,
+            target: target,
           ),
         ),
         AppGap.s(),
