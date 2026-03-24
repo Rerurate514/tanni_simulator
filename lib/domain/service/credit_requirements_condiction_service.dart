@@ -94,6 +94,54 @@ class CreditRequirementsCondictionService {
         return allCourses.where((course) => missingIds.contains(course.id)).toList();
       }
     );
-    
+  }
+
+  //check_all_is_requiredがtrueの時に、全ての必修科目を履修しているか
+  List<CourseModel>? checkAllRequiredSubjectsMet(
+    RequirementModel requirement,
+    List<CourseModel> earnedCourses,
+    List<CourseModel> allCourses,
+  ) {
+    return switchByCategoriesLength<List<CourseModel>?>(
+      requirement,
+      () => null,
+      (category, categoryType) {
+        if (!category.isCheckedAllRequired) return null;
+
+        final earnedIds = earnedCourses.map((c) => c.id).toSet();
+        
+        return allCourses.where((c) => 
+          c.category == categoryType && 
+          c.isRequired && 
+          !earnedIds.contains(c.id)
+        ).toList();
+      },
+      (prof, gen) {
+        final earnedIds = earnedCourses.map((c) => c.id).toSet();
+        final List<CourseModel> missingCourses = [];
+
+        if (prof.isCheckedAllRequired) {
+          missingCourses.addAll(
+            allCourses.where((c) => 
+              c.category == CategoryType.professional && 
+              c.isRequired && 
+              !earnedIds.contains(c.id)
+            )
+          );
+        }
+
+        if (gen.isCheckedAllRequired) {
+          missingCourses.addAll(
+            allCourses.where((c) => 
+              c.category == CategoryType.general && 
+              c.isRequired && 
+              !earnedIds.contains(c.id)
+            )
+          );
+        }
+
+        return missingCourses.isEmpty ? [] : missingCourses;
+      },
+    );
   }
 }

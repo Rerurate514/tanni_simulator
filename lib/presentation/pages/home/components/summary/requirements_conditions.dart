@@ -6,7 +6,8 @@ import 'package:tanni_simulator/domain/entities/curriculum.dart';
 import 'package:tanni_simulator/presentation/pages/home/components/summary/check_requirement_status.dart';
 import 'package:tanni_simulator/presentation/pages/home/components/summary/is_requirement_met.dart';
 import 'package:tanni_simulator/presentation/pages/home/components/summary/missing_courses.dart';
-import 'package:tanni_simulator/presentation/pages/home/providers/requirement_conditions_providers.dart';
+import 'package:tanni_simulator/application/requirement/requirement_conditions_providers.dart';
+import 'package:tanni_simulator/presentation/pages/home/providers/missing_courses_list_provider.dart';
 import 'package:tanni_simulator/presentation/widgets/app_gap.dart';
 
 class RequirementsConditions extends HookConsumerWidget {
@@ -21,7 +22,7 @@ class RequirementsConditions extends HookConsumerWidget {
 
     final isRequirementMet = ref.watch(isRequirementMetProvider(selectedRequirement));
     final requirementStatus = ref.watch(requirementStatusProvider(selectedRequirement));
-    final missingCourses = ref.watch(missingCoursesProvider(
+    final missingCourses = ref.watch(missingCoursesListProvider(
       selectedRequirement,
       curriculum
     ));

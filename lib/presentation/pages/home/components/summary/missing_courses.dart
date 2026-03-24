@@ -7,7 +7,10 @@ import 'package:tanni_simulator/presentation/widgets/app_chip.dart';
 import 'package:tanni_simulator/presentation/widgets/app_gap.dart';
 
 class MissingCourses extends HookConsumerWidget {
-  const MissingCourses({super.key, required this.missingCourses});
+  const MissingCourses({
+    super.key, 
+    required this.missingCourses
+  });
 
   final List<CourseModel> missingCourses;
 

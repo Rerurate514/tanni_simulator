@@ -50,3 +50,17 @@ List<CourseModel> missingCourses(Ref ref, RequirementModel selectedRequirement, 
     joinCategoryAllCourse(curriculum)
   );
 }
+
+@riverpod
+List<CourseModel>? checkAllRequiredSubjectsMet(Ref ref, RequirementModel selectedRequirement, CurriculumModel curriculum) {
+  final ccService = ref.watch(creditCalculatorServiceProvider);
+  final crcService = ref.watch(creditRequirementsCondictionServiceProvider);
+  final courses = ref.watch(courseListProvider);
+  final earned = ccService.getEarnedCredits(courses);
+  
+  return crcService.checkAllRequiredSubjectsMet(
+    selectedRequirement,
+    earned,
+    joinCategoryAllCourse(curriculum)
+  );
+}
