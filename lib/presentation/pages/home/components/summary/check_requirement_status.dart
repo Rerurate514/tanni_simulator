@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tanni_simulator/domain/constants/category_type.dart';
 import 'package:tanni_simulator/domain/constants/requirement_status.dart';
+import 'package:tanni_simulator/domain/service/credit_calculator_service.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
+import 'package:tanni_simulator/presentation/pages/home/components/summary/check_general_requirement.dart';
+import 'package:tanni_simulator/presentation/pages/home/components/summary/check_professional_requirement.dart';
+import 'package:tanni_simulator/presentation/pages/home/providers/category_credits_progress_provider.dart';
 import 'package:tanni_simulator/presentation/widgets/app_chip.dart';
+import 'package:tanni_simulator/presentation/widgets/app_gap.dart';
 
 class CheckRequirementStatus extends HookConsumerWidget {
   const CheckRequirementStatus({super.key, required this.requirementStatus});
@@ -32,18 +38,13 @@ class CheckRequirementStatus extends HookConsumerWidget {
       _ => [l10n.promotion_not_earned_credits],
     };
 
-    return Wrap(
-      alignment: WrapAlignment.center,
-      spacing: 8.0,
-      runSpacing: 8.0,
-      children: labels.map((label) => AppChip(
-        label: label,
-        color: theme.colorScheme.error,
-        fontSize: 12,
-        borderRadius: 6,
-        backgroundOpacity: 0.15,
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      )).toList(),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        CheckProfessionalRequirement(),
+        AppGap.s(),
+        CheckGeneralRequirement()
+      ],
     );
   }
 }
