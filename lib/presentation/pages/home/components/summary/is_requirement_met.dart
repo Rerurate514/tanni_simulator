@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
+import 'package:tanni_simulator/presentation/widgets/app_chip.dart';
 
 class IsRequirementMet extends HookConsumerWidget {
   const IsRequirementMet({super.key, required this.isRequirementMet});
@@ -14,20 +15,13 @@ class IsRequirementMet extends HookConsumerWidget {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
 
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.error.withAlpha(30),
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Text(
-        l10n.promotion_not_earned_credits,
-        style: TextStyle(
-          color: theme.colorScheme.error,
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+    return AppChip(
+      label: l10n.promotion_not_earned_credits,
+      color: theme.colorScheme.error,
+      fontSize: 12,
+      borderRadius: 6,
+      backgroundOpacity: 0.15,
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
     );
   }
 }
