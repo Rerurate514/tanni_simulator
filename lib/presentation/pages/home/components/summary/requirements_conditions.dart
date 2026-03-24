@@ -7,6 +7,9 @@ import 'package:tanni_simulator/domain/constants/category_type.dart';
 import 'package:tanni_simulator/domain/entities/curriculum.dart';
 import 'package:tanni_simulator/domain/service/credit_calculator_service.dart';
 import 'package:tanni_simulator/domain/service/credit_requirements_condiction_service.dart';
+import 'package:tanni_simulator/presentation/pages/home/components/summary/check_requirement_status.dart';
+import 'package:tanni_simulator/presentation/pages/home/components/summary/is_requirement_met.dart';
+import 'package:tanni_simulator/presentation/widgets/app_gap.dart';
 
 class RequirementsConditions extends HookConsumerWidget {
   const RequirementsConditions({super.key, required this.curriculum});
@@ -31,7 +34,7 @@ class RequirementsConditions extends HookConsumerWidget {
     );
 
     //カテゴリごとの最低単位数を満たしているかどうか
-    final checkRequirementStatus = crcService.checkRequirementStatus(
+    final requirementStatus = crcService.checkRequirementStatus(
       selectedRequirement,
       ccService.getEarnedCategoryCredits(courses, CategoryType.professional),
       ccService.getEarnedCategoryCredits(courses, CategoryType.general)
@@ -44,12 +47,17 @@ class RequirementsConditions extends HookConsumerWidget {
       joinCategoryAllCourse(curriculum)
     );
 
-    return Column(
-      children: [
-        Text(isRequirementMet.toString()),
-        Text(checkRequirementStatus.toString()),
-        Text(getMissingCourses.toString())
-      ],
+    return Padding(
+      padding: const EdgeInsetsGeometry.all(16),
+      child: Column(
+        children: [
+          IsRequirementMet(isRequirementMet: isRequirementMet),
+          AppGap.s(),
+          CheckRequirementStatus(requirementStatus: requirementStatus),
+          AppGap.s(),
+          Text(getMissingCourses.toString())
+        ],
+      ),
     );
   }
 }

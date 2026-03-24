@@ -3,6 +3,7 @@ import 'package:tanni_simulator/domain/constants/category_type.dart';
 import 'package:tanni_simulator/domain/constants/requirement_status.dart';
 import 'package:tanni_simulator/domain/entities/course.dart';
 import 'package:tanni_simulator/domain/entities/requirement.dart';
+import 'package:tanni_simulator/domain/entities/requirement_category.dart';
 
 part 'credit_requirements_condiction_service.g.dart';
 
@@ -27,20 +28,45 @@ class CreditRequirementsCondictionService {
     int profCredits,
     int genCredits,
   ) {
-    final prof = requirement.categories[CategoryType.professional.index];
-    final gen = requirement.categories[CategoryType.general.index];
+    return _switchByCategoriesLength<RequirementStatus>(
+      requirement, 
+      () {
+        return RequirementStatus.fulfilled;
+      }, 
+      (category, categoryType) {
+        switch(categoryType){
+          case CategoryType.professional: {
+            final isExceedProfCredits = profCredits < category.minCredits;
+            if(!isExceedProfCredits) return RequirementStatus.professionalCreditShortage;
+          }
+          case CategoryType.general: {
+            final isExceedGenCredits = genCredits < category.minCredits;
+            if(!isExceedGenCredits) return RequirementStatus.generalCreditShortage;
+          }
+        }
 
-    if(profCredits < prof.minCredits && genCredits < gen.minCredits) {
-      return RequirementStatus.bothCreditShortage;
-    }
-    if (profCredits < prof.minCredits) {
-      return RequirementStatus.professionalCreditShortage;
-    }
-    if (genCredits < gen.minCredits) {
-      return RequirementStatus.generalCreditShortage;
-    }
+        return RequirementStatus.fulfilled;
+      }, 
+      () {
+        final prof = requirement.categories[CategoryType.professional.index];
+        final gen = requirement.categories[CategoryType.general.index];
 
-    return RequirementStatus.fulfilled;
+        final isExceedProfCredits = profCredits < prof.minCredits;
+        final isExceedGenCredits = genCredits < gen.minCredits;
+
+        if(isExceedProfCredits && isExceedGenCredits) {
+          return RequirementStatus.bothCreditShortage;
+        }
+        if (isExceedProfCredits) {
+          return RequirementStatus.professionalCreditShortage;
+        }
+        if (isExceedGenCredits) {
+          return RequirementStatus.generalCreditShortage;
+        }
+
+        return RequirementStatus.fulfilled;
+      }
+    );
   }
 
   // categoriesのcategoryのmust_have_course_idsに書いてある単位を履修しているか
@@ -50,14 +76,43 @@ class CreditRequirementsCondictionService {
     List<CourseModel> earnedCourses,
     List<CourseModel> allCourses,
   ) {
-    final profIds = requirement.categories[CategoryType.professional.index].mustHaveCourseIds;
-    final genIds = requirement.categories[CategoryType.general.index].mustHaveCourseIds;
-    
-    final allMustIds = [...profIds, ...genIds];
     final earnedIds = earnedCourses.map((c) => c.id).toSet();
+    return _switchByCategoriesLength<List<CourseModel>>(
+      requirement, 
+      () {
+        return [];
+      }, 
+      (category, categoryType) {
+        final ids = category.mustHaveCourseIds;
+        final missingIds = ids.where((id) => !earnedIds.contains(id)).toSet();
 
-    final missingIds = allMustIds.where((id) => !earnedIds.contains(id)).toSet();
+        return allCourses.where((course) => missingIds.contains(course.id)).toList();
+      }, 
+      () {
+        final profIds = requirement.categories[CategoryType.professional.index].mustHaveCourseIds;
+        final genIds = requirement.categories[CategoryType.general.index].mustHaveCourseIds;
+        
+        final allMustIds = [...profIds, ...genIds];
+        final missingIds = allMustIds.where((id) => !earnedIds.contains(id)).toSet();
 
-    return allCourses.where((course) => missingIds.contains(course.id)).toList();
+        return allCourses.where((course) => missingIds.contains(course.id)).toList();
+      }
+    );
+    
+  }
+
+  T _switchByCategoriesLength<T>(
+    RequirementModel requirement,
+    T Function() onNoCategory,
+    T Function(RequirementCategoryModel, CategoryType) onOneCategory,
+    T Function() onTwoCategory,
+  ) {
+    final categories = requirement.categories;
+
+    return switch (categories.length) {
+      0 => onNoCategory(),
+      1 => onOneCategory(categories[0], categories[0].category),
+      _ => onTwoCategory(),
+    };
   }
 }
