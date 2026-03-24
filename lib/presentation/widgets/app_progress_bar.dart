@@ -4,9 +4,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class AppProgressBar extends StatelessWidget {
   const AppProgressBar({
-    super.key,
-    required this.total,
-    required this.target,
+    required this.total, required this.target, super.key,
     this.height = 24.0,
     this.progressColor,
   });
@@ -28,7 +26,7 @@ class AppProgressBar extends StatelessWidget {
       animation: true,
       animateFromLastPercent: true,
       lineHeight: height,
-      percent: target > 0 ? min(total / target, 1.0) : 0.0,
+      percent: target > 0 ? min(total / target, 1) : 0.0,
       barRadius: Radius.circular(height / 2),
       progressColor: effectiveProgressColor,
       backgroundColor: theme.colorScheme.surfaceContainerHighest,

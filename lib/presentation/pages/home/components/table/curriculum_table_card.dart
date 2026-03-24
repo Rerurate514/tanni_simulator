@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tanni_simulator/application/credit/is_credit_completed_provider.dart';
 import 'package:tanni_simulator/application/state/course_list_notifier.dart';
 import 'package:tanni_simulator/domain/entities/course.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
-import 'package:tanni_simulator/application/credit/is_credit_completed_provider.dart';
 import 'package:tanni_simulator/presentation/widgets/app_chip.dart';
 
 class CurriculumTableCard extends HookConsumerWidget {
-  const CurriculumTableCard({super.key, required this.courseModel});
+  const CurriculumTableCard({required this.courseModel, super.key});
 
   final CourseModel courseModel;
 
@@ -17,7 +17,9 @@ class CurriculumTableCard extends HookConsumerWidget {
     final theme = Theme.of(context);
     final isRequired = courseModel.isRequired;
 
-    final isCreditsCompleted = ref.watch(isCreditCompletedProvider(courseModel));
+    final isCreditsCompleted = ref.watch(
+      isCreditCompletedProvider(courseModel),
+    );
 
     return Card(
       elevation: 2,
@@ -32,7 +34,7 @@ class CurriculumTableCard extends HookConsumerWidget {
           ref.read(courseListProvider.notifier).toggle(courseModel);
         },
         child: Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,16 +48,16 @@ class CurriculumTableCard extends HookConsumerWidget {
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
-              
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
                       Icon(
-                        Icons.auto_awesome_motion_outlined, 
-                        size: 14, 
-                        color: theme.hintColor
+                        Icons.auto_awesome_motion_outlined,
+                        size: 14,
+                        color: theme.hintColor,
                       ),
                       const SizedBox(width: 4),
                       Text(
@@ -66,14 +68,13 @@ class CurriculumTableCard extends HookConsumerWidget {
                       ),
                     ],
                   ),
-                  
-                  if (isRequired) AppChip(
-                    label: l10n.category_required,
-                    color: theme.colorScheme.error,
-                    fontSize: 10,
-                    borderRadius: 4,
-                    backgroundOpacity: 0.12,
-                  )
+
+                  if (isRequired)
+                    AppChip(
+                      label: l10n.category_required,
+                      color: theme.colorScheme.error,
+                      fontSize: 10,
+                    ),
                 ],
               ),
             ],

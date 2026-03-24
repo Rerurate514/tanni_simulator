@@ -8,8 +8,8 @@ enum CategoryType {
 extension CategoryTypeEx on CategoryType {
   String get nameJP {
     return switch(this) {
-      CategoryType.professional => "専門教育科目",
-      CategoryType.general => "教養教育科目",
+      CategoryType.professional => '専門教育科目',
+      CategoryType.general => '教養教育科目',
     };
   }
 }

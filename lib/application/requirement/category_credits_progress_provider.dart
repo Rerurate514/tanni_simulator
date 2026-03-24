@@ -16,9 +16,16 @@ bool isProfessionalRequirementMet(Ref ref) {
   final ccService = ref.watch(creditCalculatorServiceProvider);
   final rcjService = ref.watch(requirementCreditJudgeServiceProvider);
   final courses = ref.watch(courseListProvider);
-  final profCredits = ccService.getEarnedCategoryCredits(courses, CategoryType.professional);
+  final profCredits = ccService.getEarnedCategoryCredits(
+    courses, 
+    CategoryType.professional
+  );
 
-  return rcjService.isProfessionalRequirementMet(ref, selectedRequirement, profCredits);
+  return rcjService.isProfessionalRequirementMet(
+    ref,
+    selectedRequirement, 
+    profCredits
+  );
 }
 
 @riverpod
@@ -29,13 +36,23 @@ bool isGeneralRequirementMet(Ref ref) {
   final ccService = ref.watch(creditCalculatorServiceProvider);
   final rcjService = ref.watch(requirementCreditJudgeServiceProvider);
   final courses = ref.watch(courseListProvider);
-  final genCredits = ccService.getEarnedCategoryCredits(courses, CategoryType.general);
+  final genCredits = ccService.getEarnedCategoryCredits(
+    courses, 
+    CategoryType.general
+  );
 
-  return rcjService.isGeneralRequirementMet(ref, selectedRequirement, genCredits);
+  return rcjService.isGeneralRequirementMet(
+    ref, 
+    selectedRequirement, 
+    genCredits
+  );
 }
 
 @riverpod
-(int total, int target)? categoryCreditsEarned(Ref ref, CategoryType categoryType) {
+(int total, int target)? categoryCreditsEarned(
+  Ref ref, 
+  CategoryType categoryType
+) {
   final selectedRequirement = ref.watch(selectedRequirementProvider);
   if (selectedRequirement == null) return null;
 

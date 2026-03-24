@@ -12,12 +12,12 @@ part 'curriculum.g.dart';
 sealed class CurriculumModel with _$CurriculumModel {
   const factory CurriculumModel({
     required MetadataModel metadata,
-    @JsonKey(name: 'university_curriculum') 
+    @JsonKey(name: 'university_curriculum')
     required List<CategoryModel> universityCurriculum,
     required List<RequirementModel> requirements,
-    @JsonKey(name: 'exclusive_groups') 
+    @JsonKey(name: 'exclusive_groups')
     required List<ExclusiveGroupModel> exclusiveGroups,
-    @JsonKey(name: 'credit_limit_groups') 
+    @JsonKey(name: 'credit_limit_groups')
     required List<CreditLimitGroupModel> creditLimitGroups,
   }) = _CurriculumModel;
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tanni_simulator/application/credit/total_credit_provider.dart';
 import 'package:tanni_simulator/application/state/selected_requirement_notifier.dart';
 import 'package:tanni_simulator/core/utils/join_category_course.dart';
 import 'package:tanni_simulator/domain/entities/course.dart';
@@ -7,12 +8,11 @@ import 'package:tanni_simulator/domain/entities/curriculum.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
 import 'package:tanni_simulator/presentation/pages/home/components/summary/requirements_conditions.dart';
 import 'package:tanni_simulator/presentation/pages/home/providers/summary_progress_provider.dart';
-import 'package:tanni_simulator/application/credit/total_credit_provider.dart';
 import 'package:tanni_simulator/presentation/widgets/app_gap.dart';
 import 'package:tanni_simulator/presentation/widgets/app_progress_bar.dart';
 
 class CurriculumSummary extends HookConsumerWidget {
-  const CurriculumSummary({super.key, required this.curriculum});
+  const CurriculumSummary({required this.curriculum, super.key});
 
   final CurriculumModel curriculum;
 
@@ -23,7 +23,9 @@ class CurriculumSummary extends HookConsumerWidget {
     final label = ref.watch(summaryLabelProvider(context));
     final total = ref.watch(totalCreditProvider);
     final allCredits = joinCategoryAllCourse(curriculum).allCredits;
-    final target = ref.watch(selectedRequirementProvider)?.totalCreditsRequired ?? allCredits;
+    final target =
+        ref.watch(selectedRequirementProvider)?.totalCreditsRequired ??
+        allCredits;
 
     return Card(
       elevation: 0,
@@ -32,28 +34,28 @@ class CurriculumSummary extends HookConsumerWidget {
         side: BorderSide(color: theme.dividerColor.withAlpha(50)),
       ),
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           children: [
             buildHeader(theme, l10n),
-            AppGap.s(),
+            const AppGap.s(),
             Text(l10n.section_total_status, style: theme.textTheme.titleSmall),
-            AppGap.xs(),
-            Text(label, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-            AppGap.xs(),
-            AppProgressBar(
-              total: total, 
-              target: target
+            const AppGap.xs(),
+            Text(
+              label,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
             ),
+            const AppGap.xs(),
+            AppProgressBar(total: total, target: target),
             RequirementsConditions(curriculum: curriculum),
           ],
         ),
-      )
+      ),
     );
   }
 
   Widget buildHeader(ThemeData theme, AppLocalizations l10n) {
-    return  Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(

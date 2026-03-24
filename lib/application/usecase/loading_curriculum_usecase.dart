@@ -13,7 +13,7 @@ class LoadingCurriculumUsecase extends _$LoadingCurriculumUsecase {
   }
 
   Future<void> selectCurriculum(CurriculumType type) async {
-    state = AsyncLoading();
+    state = const AsyncLoading();
 
     state = await AsyncValue.guard(() async {
       final repo = ref.read(yamlRepositoryProvider);

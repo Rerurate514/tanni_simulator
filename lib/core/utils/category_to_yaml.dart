@@ -7,31 +7,54 @@ Map<String, dynamic> addPropertyToYaml(Map<String, dynamic> originalYaml) {
   return yaml2;
 }
 
-Map<String, dynamic> _addCourseCategoryToYaml(Map<String, dynamic> originalYaml) {
+Map<String, dynamic> _addCourseCategoryToYaml(
+  Map<String, dynamic> originalYaml,
+) {
   final yaml = Map<String, dynamic>.from(originalYaml);
+  final curriculum = yaml['university_curriculum'] as List<dynamic>;
 
-  for (var course in yaml["university_curriculum"][CategoryType.professional.index]["courses"]) {
-    course["category"] = CategoryType.professional.name;
-  }
+  final profSection =
+      curriculum[CategoryType.professional.index] as Map<String, dynamic>;
   
-  for (var course in yaml["university_curriculum"][CategoryType.general.index]["courses"]) {
-    course["category"] = CategoryType.general.name;
+  final profCourses = profSection['courses'] as List<dynamic>;
+  for (final course in profCourses) {
+    (course as Map<String, dynamic>)['category'] =
+        CategoryType.professional.name;
+  }
+
+  final genSection =
+      curriculum[CategoryType.general.index] as Map<String, dynamic>;
+  final genCourses = genSection['courses'] as List<dynamic>;
+  for (final course in genCourses) {
+    (course as Map<String, dynamic>)['category'] = CategoryType.general.name;
   }
 
   return yaml;
 }
 
-Map<String, dynamic> _addRequirementsCategoryToYaml(Map<String, dynamic> originalYaml) {
+Map<String, dynamic> _addRequirementsCategoryToYaml(
+  Map<String, dynamic> originalYaml,
+) {
   final yaml = Map<String, dynamic>.from(originalYaml);
 
-  for (var requirement in yaml["requirements"]) {
-    for (var category in requirement["categories"]) {
-      if(category["category_name"] == CategoryType.professional.nameJP) {
-        category["category"] = CategoryType.professional.name;
-      } else if(category["category_name"] == CategoryType.general.nameJP){
-        category["category"] = CategoryType.general.name;
+  final requirements = yaml['requirements'] as List<dynamic>;
+
+  for (final requirement in requirements) {
+    final reqMap = requirement as Map<String, dynamic>;
+    final categories = reqMap['categories'] as List<dynamic>;
+
+    for (final category in categories) {
+      final catMap = category as Map<String, dynamic>;
+      final categoryName = catMap['category_name'] as String;
+
+      if (categoryName == CategoryType.professional.nameJP) {
+        catMap['category'] = CategoryType.professional.name;
+      } else if (categoryName == CategoryType.general.nameJP) {
+        catMap['category'] = CategoryType.general.name;
       } else {
-        throw Exception("requirementsのcategoriesのcategory_nameが既存定義と合致しません。");
+        throw Exception(
+          'requirementsのcategoriesのcategory_nameが既存定義と合致しません。: $categoryName',
+        );
       }
     }
   }

@@ -7,5 +7,7 @@ part 'is_credit_completed_provider.g.dart';
 @riverpod
 bool isCreditCompleted(Ref ref, CourseModel targetCourse) {
   final courses = ref.watch(courseListProvider);
-  return (courses.firstWhere((course) => course.id == targetCourse.id)).isCompleted;
+  return courses
+      .firstWhere((course) => course.id == targetCourse.id)
+      .isCompleted;
 }

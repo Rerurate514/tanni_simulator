@@ -12,5 +12,6 @@ sealed class ExclusiveGroupModel with _$ExclusiveGroupModel {
     @JsonKey(name: 'max_credits_allowed') @Default(2) int maxCreditsAllowed,
   }) = _ExclusiveGroupModel;
 
-  factory ExclusiveGroupModel.fromJson(Map<String, dynamic> json) => _$ExclusiveGroupModelFromJson(json);
+  factory ExclusiveGroupModel.fromJson(Map<String, dynamic> json) =>
+      _$ExclusiveGroupModelFromJson(json);
 }

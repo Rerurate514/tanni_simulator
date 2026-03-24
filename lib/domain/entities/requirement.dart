@@ -14,5 +14,6 @@ sealed class RequirementModel with _$RequirementModel {
     @JsonKey(name: 'must_have_course_ids') List<String>? mustHaveCourseIds,
   }) = _RequirementModel;
 
-  factory RequirementModel.fromJson(Map<String, dynamic> json) => _$RequirementModelFromJson(json);
+  factory RequirementModel.fromJson(Map<String, dynamic> json) =>
+      _$RequirementModelFromJson(json);
 }

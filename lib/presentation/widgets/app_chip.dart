@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppChip extends StatelessWidget {
   const AppChip({
-    super.key,
-    required this.label,
-    required this.color,
+    required this.label, required this.color, super.key,
     this.isVisible = true,
     this.fontSize = 12.0,
     this.borderRadius = 4.0,

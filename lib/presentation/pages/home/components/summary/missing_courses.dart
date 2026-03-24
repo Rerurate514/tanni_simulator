@@ -8,8 +8,7 @@ import 'package:tanni_simulator/presentation/widgets/app_gap.dart';
 
 class MissingCourses extends HookConsumerWidget {
   const MissingCourses({
-    super.key, 
-    required this.missingCourses
+    required this.missingCourses, super.key
   });
 
   final List<CourseModel> missingCourses;
@@ -31,7 +30,6 @@ class MissingCourses extends HookConsumerWidget {
     }
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -51,11 +49,11 @@ class MissingCourses extends HookConsumerWidget {
             ),
           ],
         ),
-        AppGap.s(),
+        const AppGap.s(),
         Wrap(
           alignment: WrapAlignment.center,
-          spacing: 6.0,
-          runSpacing: 6.0,
+          spacing: 6,
+          runSpacing: 6,
           children: missingCourses.map((course) {
             return AppChip(
               label: '${course.name} (${course.credits})',

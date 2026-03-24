@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tanni_simulator/core/utils/term_ex.dart';
@@ -6,18 +7,19 @@ import 'package:tanni_simulator/domain/entities/category.dart';
 import 'package:tanni_simulator/domain/entities/course.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
 import 'package:tanni_simulator/presentation/pages/home/components/table/curriculum_table_card.dart';
-import 'package:collection/collection.dart';
 import 'package:tanni_simulator/presentation/widgets/app_gap.dart';
 
 class CurriculumTableCategories extends StatefulHookConsumerWidget {
-  const CurriculumTableCategories({super.key, required this.categories});
+  const CurriculumTableCategories({required this.categories, super.key});
   final List<CategoryModel> categories;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _CurriculumCategoriesState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _CurriculumCategoriesState();
 }
 
-class _CurriculumCategoriesState extends ConsumerState<CurriculumTableCategories> {
+class _CurriculumCategoriesState
+    extends ConsumerState<CurriculumTableCategories> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -30,11 +32,11 @@ class _CurriculumCategoriesState extends ConsumerState<CurriculumTableCategories
         _buildProChip(theme, l10n),
         ..._buildTermSlivers(context, prod.courses),
 
-        SliverToBoxAdapter(
+        const SliverToBoxAdapter(
           child: AppGap.l(),
         ),
 
-        SliverToBoxAdapter(child: const Divider()),
+        const SliverToBoxAdapter(child: Divider()),
         _buildGenChip(theme, l10n),
         ..._buildTermSlivers(context, gen.courses),
       ],
@@ -111,9 +113,12 @@ class _CurriculumCategoriesState extends ConsumerState<CurriculumTableCategories
     );
   }
 
-  List<Widget> _buildTermSlivers(BuildContext context, List<CourseModel> courses) {
+  List<Widget> _buildTermSlivers(
+    BuildContext context,
+    List<CourseModel> courses,
+  ) {
     final l10n = AppLocalizations.of(context);
-    final coursesByTerm = groupBy(courses, (CourseModel c) => c.term);
+    final coursesByTerm = groupBy(courses, (c) => c.term);
     final sortedTerms = coursesByTerm.keys.toList();
 
     return [
@@ -131,14 +136,14 @@ class _CurriculumCategoriesState extends ConsumerState<CurriculumTableCategories
                     borderRadius: BorderRadius.circular(2),
                   ),
                 ),
-                AppGap.xs(),
+                const AppGap.xs(),
                 Text(
                   term.toTermName(l10n),
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                AppGap.xs(),
+                const AppGap.xs(),
                 Text(
                   l10n.kamoku_count(coursesByTerm[term]!.length),
                   style: Theme.of(context).textTheme.bodySmall,
@@ -149,7 +154,8 @@ class _CurriculumCategoriesState extends ConsumerState<CurriculumTableCategories
         ),
         SliverGrid(
           delegate: SliverChildBuilderDelegate(
-            (context, i) => CurriculumTableCard(courseModel: coursesByTerm[term]![i]),
+            (context, i) =>
+                CurriculumTableCard(courseModel: coursesByTerm[term]![i]),
             childCount: coursesByTerm[term]!.length,
           ),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

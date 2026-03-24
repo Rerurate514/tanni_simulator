@@ -3,7 +3,6 @@ import 'package:tanni_simulator/core/utils/switch_by_categories_length.dart';
 import 'package:tanni_simulator/domain/constants/category_type.dart';
 import 'package:tanni_simulator/domain/entities/course.dart';
 import 'package:tanni_simulator/domain/entities/requirement.dart';
-import 'package:tanni_simulator/domain/entities/requirement_category.dart';
 
 part 'requirement_course_analyst_service.g.dart';
 
@@ -24,22 +23,31 @@ class RequirementCourseAnalystService {
   ) {
     final earnedIds = earnedCourses.map((c) => c.id).toSet();
     return switchByCategoriesLength<List<CourseModel>>(
-      requirement, 
+      requirement,
       () {
         return [];
-      }, 
+      },
       (category, categoryType) {
         final ids = category.mustHaveCourseIds;
         final missingIds = ids.where((id) => !earnedIds.contains(id)).toSet();
 
-        return allCourses.where((course) => missingIds.contains(course.id)).toList();
-      }, 
-      (RequirementCategoryModel prof, RequirementCategoryModel gen) {
-        final allMustIds = [...prof.mustHaveCourseIds, ...gen.mustHaveCourseIds];
-        final missingIds = allMustIds.where((id) => !earnedIds.contains(id)).toSet();
+        return allCourses
+            .where((course) => missingIds.contains(course.id))
+            .toList();
+      },
+      (prof, gen) {
+        final allMustIds = [
+          ...prof.mustHaveCourseIds,
+          ...gen.mustHaveCourseIds,
+        ];
+        final missingIds = allMustIds
+            .where((id) => !earnedIds.contains(id))
+            .toSet();
 
-        return allCourses.where((course) => missingIds.contains(course.id)).toList();
-      }
+        return allCourses
+            .where((course) => missingIds.contains(course.id))
+            .toList();
+      },
     );
   }
 
@@ -56,34 +64,39 @@ class RequirementCourseAnalystService {
         if (!category.isCheckedAllRequired) return null;
 
         final earnedIds = earnedCourses.map((c) => c.id).toSet();
-        
-        return allCourses.where((c) => 
-          c.category == categoryType && 
-          c.isRequired && 
-          !earnedIds.contains(c.id)
-        ).toList();
+
+        return allCourses
+            .where(
+              (c) =>
+                  c.category == categoryType &&
+                  c.isRequired &&
+                  !earnedIds.contains(c.id),
+            )
+            .toList();
       },
       (prof, gen) {
         final earnedIds = earnedCourses.map((c) => c.id).toSet();
-        final List<CourseModel> missingCourses = [];
+        final missingCourses = <CourseModel>[];
 
         if (prof.isCheckedAllRequired) {
           missingCourses.addAll(
-            allCourses.where((c) => 
-              c.category == CategoryType.professional && 
-              c.isRequired && 
-              !earnedIds.contains(c.id)
-            )
+            allCourses.where(
+              (c) =>
+                  c.category == CategoryType.professional &&
+                  c.isRequired &&
+                  !earnedIds.contains(c.id),
+            ),
           );
         }
 
         if (gen.isCheckedAllRequired) {
           missingCourses.addAll(
-            allCourses.where((c) => 
-              c.category == CategoryType.general && 
-              c.isRequired && 
-              !earnedIds.contains(c.id)
-            )
+            allCourses.where(
+              (c) =>
+                  c.category == CategoryType.general &&
+                  c.isRequired &&
+                  !earnedIds.contains(c.id),
+            ),
           );
         }
 
@@ -91,5 +104,4 @@ class RequirementCourseAnalystService {
       },
     );
   }
-
 }
