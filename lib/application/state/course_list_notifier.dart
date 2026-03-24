@@ -33,8 +33,4 @@ class CourseListNotifier extends _$CourseListNotifier {
       return course;
     }).toList();
   }
-
-  bool isCompleted(CourseModel targetModel) {
-    return (state.firstWhere((course) => course.id == targetModel.id)).isCompleted;
-  }
 }

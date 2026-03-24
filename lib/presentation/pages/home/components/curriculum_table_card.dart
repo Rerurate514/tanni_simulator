@@ -5,6 +5,7 @@ import 'package:tanni_simulator/application/state/course_list_notifier.dart';
 import 'package:tanni_simulator/domain/entities/course.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
 import 'package:tanni_simulator/presentation/pages/home/components/credit_required_chip.dart';
+import 'package:tanni_simulator/presentation/pages/home/providers/is_credit_completed_provider.dart';
 
 class CurriculumTableCard extends HookConsumerWidget {
   const CurriculumTableCard({super.key, required this.courseModel});
@@ -17,7 +18,7 @@ class CurriculumTableCard extends HookConsumerWidget {
     final theme = Theme.of(context);
     final isRequired = courseModel.isRequired;
 
-    final isCreditsCompleted = ref.read(courseListProvider.notifier).isCompleted(courseModel);
+    final isCreditsCompleted = ref.watch(isCreditCompletedProvider(courseModel));
     final isSelected = useState(isCreditsCompleted);
 
     return Card(
