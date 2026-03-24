@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tanni_simulator/application/state/course_list_notifier.dart';
 import 'package:tanni_simulator/domain/entities/course.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
-import 'package:tanni_simulator/application/requirement/is_credit_completed_provider.dart';
+import 'package:tanni_simulator/application/credit/is_credit_completed_provider.dart';
 import 'package:tanni_simulator/presentation/widgets/app_chip.dart';
 
 class CurriculumTableCard extends HookConsumerWidget {
