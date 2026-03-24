@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:tanni_simulator/domain/constants/category_type.dart';
 
 part 'course.freezed.dart';
 part 'course.g.dart';
@@ -11,8 +12,8 @@ sealed class CourseModel with _$CourseModel {
     @JsonKey(name: 'is_required') required bool isRequired,
     required int credits,
     required int term,
-    @Default(false)
-    bool isCompleted
+    @Default(false) bool isCompleted,
+    required CategoryType category
   }) = _CourseModel;
 
   factory CourseModel.fromJson(Map<String, dynamic> json) => _$CourseModelFromJson(json);

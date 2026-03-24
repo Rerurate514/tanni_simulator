@@ -1,4 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:tanni_simulator/core/utils/course_category_to_yaml.dart';
 import 'package:tanni_simulator/core/utils/yaml_to_map.dart';
 import 'package:tanni_simulator/domain/repositories/i_yaml_repository.dart';
 import 'package:flutter/services.dart';
@@ -18,7 +19,8 @@ class YamlRepositoryImpl extends IYamlRepository {
     final yamlMap = loadYaml(rawYaml) as YamlMap;
     
     final map = yamlToMap(yamlMap);
+    final injectedMap = addCourseCategoryToYaml(map);
     
-    return map;
+    return injectedMap;
   }
 }
