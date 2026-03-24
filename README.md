@@ -1,3 +1,8 @@
-# tanni_simulator
+# README
+簡単に単位計算ができればいいなっていうところで作成しています。
 
-A new Flutter project.
+現在は`assets/data/curriculum`以下に定義した単位の静的マスタYAMLが保管されています。
+
+## 対応済み
+- 2023年度入学 - T科
+- 
