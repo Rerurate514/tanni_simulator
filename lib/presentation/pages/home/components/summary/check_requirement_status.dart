@@ -19,6 +19,10 @@ class CheckRequirementStatus extends HookConsumerWidget {
     }
 
     final (label, color) = switch (requirementStatus) {
+      RequirementStatus.bothCreditShortage => (
+          l10n.promotion_not_earned_both_credit,
+          theme.colorScheme.error,
+        ),
       RequirementStatus.professionalCreditShortage => (
           l10n.promotion_not_earned_professional_credit,
           theme.colorScheme.error,
