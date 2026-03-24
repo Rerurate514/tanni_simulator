@@ -5,7 +5,7 @@ import 'package:tanni_simulator/domain/constants/category_type.dart';
 import 'package:tanni_simulator/domain/entities/category.dart';
 import 'package:tanni_simulator/domain/entities/course.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
-import 'package:tanni_simulator/presentation/pages/home/components/curriculum_table_card.dart';
+import 'package:tanni_simulator/presentation/pages/home/components/table/curriculum_table_card.dart';
 import 'package:collection/collection.dart';
 import 'package:tanni_simulator/presentation/widgets/app_gap.dart';
 

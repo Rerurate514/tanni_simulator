@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:tanni_simulator/domain/entities/curriculum.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
+import 'package:tanni_simulator/presentation/pages/home/components/summary/requirements_conditions.dart';
 import 'package:tanni_simulator/presentation/pages/home/providers/summary_progress_provider.dart';
 import 'package:tanni_simulator/presentation/widgets/app_gap.dart';
 
@@ -44,6 +45,7 @@ class CurriculumSummary extends HookConsumerWidget {
               backgroundColor: theme.colorScheme.surfaceContainerHighest,
               padding: EdgeInsets.zero,
             ),
+            RequirementsConditions(curriculum: curriculum),
           ],
         ),
       )
