@@ -12,32 +12,50 @@ class MissingCourses extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    if (missingCourses.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context);
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        if (missingCourses.isNotEmpty) Text(
-          l10n.promotion_not_earned_label,
-          style: theme.textTheme.labelLarge?.copyWith(
-            color: theme.colorScheme.primary,
-            fontWeight: FontWeight.bold,
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.warning_amber_rounded,
+              size: 18,
+              color: theme.colorScheme.error,
+            ),
+            const SizedBox(width: 4),
+            Text(
+              l10n.promotion_not_earned_label,
+              style: theme.textTheme.labelLarge?.copyWith(
+                color: theme.colorScheme.error,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
-        AppGap.xs(),
+        AppGap.s(),
         Wrap(
           alignment: WrapAlignment.center,
-          spacing: 8.0,
-          runSpacing: 8.0,
-          children: missingCourses.map((course) => AppChip(
-            label: course.name,
-            color: theme.colorScheme.error,
-            fontSize: 12,
-            borderRadius: 6,
-            backgroundOpacity: 0.15,
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-          )).toList(),
-        )
+          spacing: 6.0,
+          runSpacing: 6.0,
+          children: missingCourses.map((course) {
+            return AppChip(
+              label: '${course.name} (${course.credits})',
+              color: theme.colorScheme.error,
+              fontSize: 11,
+              borderRadius: 8,
+              backgroundOpacity: 0.1,
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            );
+          }).toList(),
+        ),
       ],
     );
   }
