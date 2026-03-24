@@ -17,7 +17,8 @@ class CurriculumTableCard extends HookConsumerWidget {
     final theme = Theme.of(context);
     final isRequired = courseModel.isRequired;
 
-    final isSelected = useState(false);
+    final isCreditsCompleted = ref.read(courseListProvider.notifier).isCompleted(courseModel);
+    final isSelected = useState(isCreditsCompleted);
 
     return Card(
       elevation: 2,
