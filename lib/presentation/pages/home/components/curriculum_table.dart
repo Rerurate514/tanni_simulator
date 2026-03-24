@@ -23,15 +23,15 @@ class _CurriculumTableState extends ConsumerState<CurriculumTable> {
     return table.when(
       error: (e, stack) => Text("${l10n.msg_error_load_failed}\n$e: $stack"), 
       loading: () => CircularProgressIndicator(),
-      data: (CurriculumModel? model) {
-        if(model == null) return Text(l10n.msg_select_curriculum_first);
+      data: (CurriculumModel? curriculum) {
+        if(curriculum == null) return Text(l10n.msg_select_curriculum_first);
         return Column(
           children: [
-            PromotionGateSelector(requirements: model.requirements),
+            PromotionGateSelector(requirements: curriculum.requirements),
             AppGap.s(),
-            CurriculumSummary(curriculum: model),
+            CurriculumSummary(curriculum: curriculum),
             AppGap.s(),
-            Expanded(child: CurriculumTableCategories(categories: model.universityCurriculum))
+            Expanded(child: CurriculumTableCategories(categories: curriculum.universityCurriculum))
           ],
         );
       }, 
