@@ -57,6 +57,7 @@
     "promotion_not_earned_professional_credit": "進級または卒業に関わる専門教育科目における最低単位数を満たしていません。",
     "promotion_not_earned_general_credit": "進級または卒業に関わる教養教育科目における最低単位数を満たしていません。",
     "promotion_not_earned_both_credit": "進級または卒業に関わる専門教育科目かつ教養教育科目における最低単位数を満たしていません。",
+    "promotion_not_earned_label": "以下の科目が未履修です。",
 
     "@@curriculum_categories": "カリキュラム区分",
     "category_general": "教養教育科目",

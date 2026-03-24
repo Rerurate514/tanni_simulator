@@ -9,6 +9,7 @@ import 'package:tanni_simulator/domain/service/credit_calculator_service.dart';
 import 'package:tanni_simulator/domain/service/credit_requirements_condiction_service.dart';
 import 'package:tanni_simulator/presentation/pages/home/components/summary/check_requirement_status.dart';
 import 'package:tanni_simulator/presentation/pages/home/components/summary/is_requirement_met.dart';
+import 'package:tanni_simulator/presentation/pages/home/components/summary/missing_courses.dart';
 import 'package:tanni_simulator/presentation/widgets/app_gap.dart';
 
 class RequirementsConditions extends HookConsumerWidget {
@@ -41,23 +42,26 @@ class RequirementsConditions extends HookConsumerWidget {
     );
 
     //進級に必要な必修科目を履修しているかどうか
-    final getMissingCourses = crcService.getMissingCourses(
+    final missingCourses = crcService.getMissingCourses(
       selectedRequirement,
       earned,
       joinCategoryAllCourse(curriculum)
     );
 
-    return Padding(
-      padding: const EdgeInsetsGeometry.all(16),
-      child: Column(
-        children: [
-          IsRequirementMet(isRequirementMet: isRequirementMet),
-          AppGap.s(),
-          CheckRequirementStatus(requirementStatus: requirementStatus),
-          AppGap.s(),
-          Text(getMissingCourses.toString())
-        ],
-      ),
+    return Card(
+      margin: const EdgeInsets.all(16),
+      child: Padding(
+        padding: EdgeInsetsGeometry.all(8),
+        child: Column(
+          children: [
+            IsRequirementMet(isRequirementMet: isRequirementMet),
+            AppGap.s(),
+            CheckRequirementStatus(requirementStatus: requirementStatus),
+            AppGap.s(),
+            MissingCourses(missingCourses: missingCourses)
+          ],
+        ),
+      )
     );
   }
 }
