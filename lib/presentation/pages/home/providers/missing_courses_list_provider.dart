@@ -8,10 +8,10 @@ part 'missing_courses_list_provider.g.dart';
 
 @riverpod
 List<CourseModel> missingCoursesList(Ref ref, RequirementModel selectedRequirement, CurriculumModel curriculum) {
-  final mustCourses = ref.watch(missingCoursesProvider(selectedRequirement, curriculum));
-  final allRequiredCourses = ref.watch(checkAllRequiredSubjectsMetProvider(selectedRequirement, curriculum));
+  final mandatoryCourses = ref.watch(mandatoryCoursesProvider(selectedRequirement, curriculum));
+  final allEssentialCourses = ref.watch(checkAllRequiredSubjectsMetProvider(selectedRequirement, curriculum));
 
-  if(allRequiredCourses == null) return mustCourses;
+  if(allEssentialCourses == null) return mandatoryCourses;
 
-  return (mustCourses + allRequiredCourses).toSet().toList();
+  return (mandatoryCourses + allEssentialCourses).toSet().toList();
 }

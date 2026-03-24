@@ -38,7 +38,7 @@ RequirementStatus requirementStatus(Ref ref, RequirementModel selectedRequiremen
 }
 
 @riverpod
-List<CourseModel> missingCourses(Ref ref, RequirementModel selectedRequirement, CurriculumModel curriculum) {
+List<CourseModel> mandatoryCourses(Ref ref, RequirementModel selectedRequirement, CurriculumModel curriculum) {
   final ccService = ref.watch(creditCalculatorServiceProvider);
   final crcService = ref.watch(creditRequirementsCondictionServiceProvider);
   final courses = ref.watch(courseListProvider);
