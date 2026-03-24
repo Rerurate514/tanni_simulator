@@ -8,13 +8,13 @@ import 'package:tanni_simulator/presentation/pages/home/components/table/curricu
 import 'package:tanni_simulator/presentation/pages/home/components/selector/promotion_gate_selector.dart';
 import 'package:tanni_simulator/presentation/widgets/app_gap.dart';
 
-class CurriculumTable extends StatefulHookConsumerWidget {
-  const CurriculumTable({super.key});
+class CurriculumDashboard extends StatefulHookConsumerWidget {
+  const CurriculumDashboard({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _CurriculumTableState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _CurriculumDashboardState();
 }
-class _CurriculumTableState extends ConsumerState<CurriculumTable> {
+class _CurriculumDashboardState extends ConsumerState<CurriculumDashboard> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
