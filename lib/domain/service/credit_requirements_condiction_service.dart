@@ -1,4 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:tanni_simulator/core/utils/switch_by_categories_length.dart';
 import 'package:tanni_simulator/domain/constants/category_type.dart';
 import 'package:tanni_simulator/domain/constants/requirement_status.dart';
 import 'package:tanni_simulator/domain/entities/course.dart';
@@ -28,7 +29,7 @@ class CreditRequirementsCondictionService {
     int profCredits,
     int genCredits,
   ) {
-    return _switchByCategoriesLength<RequirementStatus>(
+    return switchByCategoriesLength<RequirementStatus>(
       requirement, 
       () {
         return RequirementStatus.fulfilled;
@@ -47,10 +48,7 @@ class CreditRequirementsCondictionService {
 
         return RequirementStatus.fulfilled;
       }, 
-      () {
-        final prof = requirement.categories[CategoryType.professional.index];
-        final gen = requirement.categories[CategoryType.general.index];
-
+      (RequirementCategoryModel prof, RequirementCategoryModel gen) {
         final isExceedProfCredits = profCredits < prof.minCredits;
         final isExceedGenCredits = genCredits < gen.minCredits;
 
@@ -77,7 +75,7 @@ class CreditRequirementsCondictionService {
     List<CourseModel> allCourses,
   ) {
     final earnedIds = earnedCourses.map((c) => c.id).toSet();
-    return _switchByCategoriesLength<List<CourseModel>>(
+    return switchByCategoriesLength<List<CourseModel>>(
       requirement, 
       () {
         return [];
@@ -88,31 +86,13 @@ class CreditRequirementsCondictionService {
 
         return allCourses.where((course) => missingIds.contains(course.id)).toList();
       }, 
-      () {
-        final profIds = requirement.categories[CategoryType.professional.index].mustHaveCourseIds;
-        final genIds = requirement.categories[CategoryType.general.index].mustHaveCourseIds;
-        
-        final allMustIds = [...profIds, ...genIds];
+      (RequirementCategoryModel prof, RequirementCategoryModel gen) {
+        final allMustIds = [...prof.mustHaveCourseIds, ...gen.mustHaveCourseIds];
         final missingIds = allMustIds.where((id) => !earnedIds.contains(id)).toSet();
 
         return allCourses.where((course) => missingIds.contains(course.id)).toList();
       }
     );
     
-  }
-
-  T _switchByCategoriesLength<T>(
-    RequirementModel requirement,
-    T Function() onNoCategory,
-    T Function(RequirementCategoryModel, CategoryType) onOneCategory,
-    T Function() onTwoCategory,
-  ) {
-    final categories = requirement.categories;
-
-    return switch (categories.length) {
-      0 => onNoCategory(),
-      1 => onOneCategory(categories[0], categories[0].category),
-      _ => onTwoCategory(),
-    };
   }
 }
