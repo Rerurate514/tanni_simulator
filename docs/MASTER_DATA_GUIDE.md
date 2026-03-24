@@ -43,7 +43,14 @@
 * `total_credits_required`: 必要最低合計単位数。
 * `categories`: カテゴリ別の最低単位数や、カテゴリ内必修単位数の合計を指定。
   * カテゴリは`専門教育科目`と`教養教育科目`の二つになります。
-  * 必ず、`専門教育科目`の進級要件を一番目に書いてください。記述例の順番に**必ず**沿ってください。
+  * 必ず、`専門教育科目`の進級要件を一番目に書いてください。記述例の順番に必ず沿ってください。
+
+| フィールド               | 型  | 内容                                                                    |
+| ----------------------- | ------ | ------------------------------------------------------------------------- |
+| `category_name`         | string | `専門教育科目` または `教養教育科目`。                                                    |
+| `min_credits`           | int    | そのカテゴリで最低限必要な合計単位数。                                                       |
+| `must_have_course_ids`  | list   | 個別に指定する必須取得科目のIDリスト。                                                  |
+| `check_all_is_required` | bool   | `true` の場合、マスタ内の当該カテゴリで `is_required: true` となっている全科目を自動的に必須取得対象とします。 |
 
 ### 2.4 exclusive_groups（排他制御）
 「表象文化論」と「現代社会論」のように、どちらか一方しか履修できないルールを管理します。
@@ -67,42 +74,70 @@
 
 ## 4. 記述例
 ```yaml
+# ==========================================
+# 1. メタデータ定義
+# ==========================================
 metadata:
   university: "東北工業大学"
   department: "情報通信工学科"
-  applicable_year: 2024
+  applicable_year: 2024  # この年度の入学生から適用されるカリキュラムであることを示す
 
+# ==========================================
+# 2. カリキュラム本体（科目マスタ）
+# ==========================================
 university_curriculum:
   - category: "専門教育科目"
     courses:
       - id: "prof-01"
         name: "情報通信工学セミナーⅠ"
-        is_required: true
+        is_required: true   # マスタ上の必修フラグ。check_all_is_required: true の時に対象となる
         credits: 1
-        term: 1
+        term: 1             # 1年次前期（春）
+      - id: "prof-99"
+        name: "特殊実験演習"
+        is_required: false  # 卒業要件上は選択だが、進級判定で必須にしたい場合は後述の requirements で指定
+        credits: 2
+        term: 4             # 2年次後期（秋）
 
+# ==========================================
+# 3. 判定ロジック（進級・卒業要件）
+# ==========================================
 requirements:
-  - id: "promotion_to_4th_year"
-    title: "4年次への進級条件"
-    total_credits_required: 100
+  - id: "promotion_to_3rd_year"
+    title: "3年次への進級条件"
+    total_credits_required: 64  # 合計で64単位以上取得していることが大前提
     categories:
+      # --- 専門科目の判定ルール ---
       - category_name: "専門教育科目"
-        min_credits: 76
-        must_have_course_ids: ["prof-27", "prof-36", "prof-45"]
-      - category_name: "教養教育科目"
-        min_credits: 24
-        must_have_course_ids: ["gen-21", "gen-30"]
+        min_credits: 40         # 専門だけで40単位以上必要
+        # 【重要】マスタで必修(is_required: true)になっている科目をすべて「不足科目」としてリストアップする
+        check_all_is_required: true
+        # マスタ上は選択科目だが、この「3年次進級」の時だけは個別に取得を義務付けたいIDを指定
+        must_have_course_ids: ["prof-99"] 
 
+      # --- 教養科目の判定ルール ---
+      - category_name: "教養教育科目"
+        min_credits: 16
+        # 教養は「必修全取得」のルールがない（または手動で管理したい）場合は false にする
+        check_all_is_required: false
+        # 指定した特定の科目（例：英語やキャリア教育）のみを必須チェック対象とする
+        must_have_course_ids: ["gen-01", "gen-02", "gen-03"]
+
+# ==========================================
+# 4. 特殊ルール（排他・上限）
+# ==========================================
 exclusive_groups:
   - id: "gen-group-culture-1"
     name: "表象文化論・現代社会論 選択"
+    # どちらか一方しか卒業単位に含まれないルール（UI上で重複選択を防ぐ）
     course_ids: ["gen-11", "gen-12"]
     max_credits_allowed: 2
 
 credit_limit_groups:
   - id: "limit-prof-extracurricular"
     name: "専門教育 特別課外活動"
-    course_ids: ["prof-61", "prof-62", "prof-63", "prof-64", "prof-65", "prof-66"]
+    # 該当する科目をすべて足しても、最大で6単位までしかカウントしない制約
+    course_ids: ["prof-61", "prof-62", "prof-63"]
     max_credits_allowed: 6
 ```
 
