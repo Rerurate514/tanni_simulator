@@ -22,7 +22,7 @@ sealed class CourseModel with _$CourseModel {
 
 extension CourseListEx on List<CourseModel> {
   int get allCredits => fold(0, (sum, course) => sum + course.credits);
-  CourseModel findCourceById(String id) {
-    return firstWhere((cource) => cource.id == id);
+  CourseModel findCourseById(String id) {
+    return firstWhere((course) => course.id == id);
   }
 }
