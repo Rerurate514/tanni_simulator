@@ -12,6 +12,14 @@
     "section_total_status": "全体の進捗",
     "section_category_status": "カテゴリ別詳細",
     "section_requirements": "進級・卒業要件チェック",
+    "credits_count_remains": "残り{creadits_count}項目",
+    "@credits_count_remains": {
+        "placeholders": {
+            "creadits_count": {
+                "type": "int"
+            }
+        }
+    },
 
     "@@credit_terms": "単位計算・ステータス関連",
     "label_total_credits": "合計修得単位",

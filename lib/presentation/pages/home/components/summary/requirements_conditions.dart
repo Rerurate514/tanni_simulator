@@ -30,20 +30,17 @@ class RequirementsConditions extends HookConsumerWidget {
       missingCoursesListProvider(selectedRequirement, curriculum),
     );
 
-    return Card(
-      margin: const EdgeInsets.all(8),
-      child: Padding(
-        padding: const EdgeInsetsGeometry.all(16),
-        child: Column(
-          children: [
-            IsRequirementMet(isRequirementMet: isRequirementMet),
-            if (!isRequirementMet) const AppGap.s(),
-            CheckRequirementStatus(requirementStatus: requirementStatus),
-            if (requirementStatus != RequirementStatus.notExist)
-              const AppGap.s(),
-            MissingCourses(missingCourses: missingCourses),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsetsGeometry.all(16),
+      child: Column(
+        children: [
+          IsRequirementMet(isRequirementMet: isRequirementMet),
+          if (!isRequirementMet) const AppGap.s(),
+          CheckRequirementStatus(requirementStatus: requirementStatus),
+          if (requirementStatus != RequirementStatus.notExist)
+            const AppGap.s(),
+          MissingCourses(missingCourses: missingCourses),
+        ],
       ),
     );
   }

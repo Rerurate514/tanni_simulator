@@ -47,7 +47,13 @@ class CurriculumSummary extends HookConsumerWidget {
             ),
             const AppGap.xs(),
             AppProgressBar(total: total, target: target),
-            RequirementsConditions(curriculum: curriculum),
+            const AppGap.xs(),
+            ExpansionTile(
+              title: buildExpansionTitle(l10n, theme),
+              children: [
+                RequirementsConditions(curriculum: curriculum),
+              ],
+            )
           ],
         ),
       ),
@@ -92,6 +98,19 @@ class CurriculumSummary extends HookConsumerWidget {
               color: theme.colorScheme.onPrimaryContainer,
               fontWeight: FontWeight.bold,
             ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget buildExpansionTitle(AppLocalizations l10n, ThemeData theme) {
+    return Row(
+      children: [
+        Text(
+          l10n.section_requirements,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
           ),
         ),
       ],
