@@ -12,7 +12,7 @@ sealed class ExclusiveGroupState with _$ExclusiveGroupState {
 
   factory ExclusiveGroupState.selected({
     required ExclusiveGroupModel group,
-    required String selectedCourceId
+    required String selectedCourseId
   }) = ExclusiveGroupSelected;
 
   factory ExclusiveGroupState.fromJson(Map<String, dynamic> json) =>

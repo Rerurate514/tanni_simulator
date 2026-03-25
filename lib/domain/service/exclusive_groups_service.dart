@@ -28,13 +28,13 @@ class ExclusiveGroupService {
       if (!isCourseContains(eg, selectedCourse)) return eg;
       if (
           eg is ExclusiveGroupSelected &&
-          eg.selectedCourceId == selectedCourse.id
+          eg.selectedCourseId == selectedCourse.id
         ) {
         return ExclusiveGroupNotSelected(group: eg.group);
       }
       return ExclusiveGroupSelected(
         group: eg.group,
-        selectedCourceId: selectedCourse.id,
+        selectedCourseId: selectedCourse.id,
       );
     }).toList();
   }

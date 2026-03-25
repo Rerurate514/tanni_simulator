@@ -52,12 +52,12 @@ List<CourseModel> mandatoryCourses(
   final jccService = ref.watch(joinCategoryAllCourseProvider);
   final courses = ref.watch(courseListProvider);
   final earned = ccService.getEarnedCredits(courses);
-  final allCources = jccService.joinCategory(curriculum);
+  final allCourses = jccService.joinCategory(curriculum);
 
   return rcaService.getMissingCourses(
     selectedRequirement,
     earned,
-    allCources,
+    allCourses,
   );
 }
 
@@ -72,11 +72,11 @@ List<CourseModel>? checkAllRequiredSubjectsMet(
   final jccService = ref.watch(joinCategoryAllCourseProvider);
   final courses = ref.watch(courseListProvider);
   final earned = ccService.getEarnedCredits(courses);
-  final allCources = jccService.joinCategory(curriculum);
+  final allCourses = jccService.joinCategory(curriculum);
 
   return rcaService.checkAllRequiredSubjectsMet(
     selectedRequirement,
     earned,
-    allCources,
+    allCourses,
   );
 }
