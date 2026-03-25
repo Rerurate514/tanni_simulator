@@ -1,10 +1,10 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:tanni_simulator/application/state/course_list_notifier.dart';
 import 'package:tanni_simulator/application/state/selected_requirement_notifier.dart';
-import 'package:tanni_simulator/core/utils/switch_by_categories_length.dart';
 import 'package:tanni_simulator/domain/constants/category_type.dart';
 import 'package:tanni_simulator/domain/service/credit_calculator_service.dart';
 import 'package:tanni_simulator/domain/service/requirement_credit_judge_service.dart';
+import 'package:tanni_simulator/domain/utils/switch_by_categories_length.dart';
 
 part 'category_credits_progress_provider.g.dart';
 

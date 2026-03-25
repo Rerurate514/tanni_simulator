@@ -1,8 +1,8 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:tanni_simulator/core/utils/term_ex.dart';
 import 'package:tanni_simulator/domain/constants/category_type.dart';
+import 'package:tanni_simulator/domain/constants/term_ex.dart';
 import 'package:tanni_simulator/domain/entities/category.dart';
 import 'package:tanni_simulator/domain/entities/course.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';

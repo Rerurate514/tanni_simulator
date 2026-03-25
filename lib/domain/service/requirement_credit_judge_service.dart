@@ -1,8 +1,8 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tanni_simulator/core/utils/switch_by_categories_length.dart';
 import 'package:tanni_simulator/domain/constants/category_type.dart';
 import 'package:tanni_simulator/domain/constants/requirement_status.dart';
 import 'package:tanni_simulator/domain/entities/requirement.dart';
+import 'package:tanni_simulator/domain/utils/switch_by_categories_length.dart';
 
 part 'requirement_credit_judge_service.g.dart';
 
