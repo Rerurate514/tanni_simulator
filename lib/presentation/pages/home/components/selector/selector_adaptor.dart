@@ -18,8 +18,8 @@ class SelectorAdaptor extends HookConsumerWidget {
         const AppGap.s(),
         Expanded(
           child: table.when(
-            error: (e, stack) => const SizedBox.shrink(),
-            loading: () => const SizedBox.shrink(),
+            error: (e, stack) => const Expanded(child: SizedBox.shrink()),
+            loading: () => const Expanded(child: SizedBox.shrink()),
             data: (curriculum) {
               if (curriculum == null) {
                 return const SizedBox.shrink();
