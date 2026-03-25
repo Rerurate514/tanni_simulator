@@ -7,12 +7,14 @@ import 'package:tanni_simulator/presentation/widgets/app_progress_bar.dart';
 
 class CheckCategoryRequirement extends HookConsumerWidget {
   const CheckCategoryRequirement({
+    required this.icon,
     required this.total,
     required this.target,
     required this.chip,
     super.key,
   });
 
+  final Icon icon;
   final int total;
   final int target;
   final AppChip chip;
@@ -23,6 +25,8 @@ class CheckCategoryRequirement extends HookConsumerWidget {
 
     return Row(
       children: [
+        icon,
+        const AppGap.xs(),
         SizedBox(
           width: 100,
           child: Text(

@@ -29,6 +29,11 @@ class CheckProfessionalRequirement extends HookConsumerWidget {
     );
 
     return CheckCategoryRequirement(
+      icon: Icon(
+        Icons.school_outlined,
+        size: 20,
+        color: theme.colorScheme.onSecondaryContainer,
+      ),
       total: total, 
       target: target, 
       chip: AppChip(

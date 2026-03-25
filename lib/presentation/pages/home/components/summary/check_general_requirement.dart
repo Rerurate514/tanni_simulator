@@ -27,6 +27,11 @@ class CheckGeneralRequirement extends HookConsumerWidget {
     final isGeneralRequirementMet = ref.watch(isGeneralRequirementMetProvider);
 
     return CheckCategoryRequirement(
+      icon: Icon(
+        Icons.history_edu,
+        size: 20,
+        color: theme.colorScheme.onSecondaryContainer,
+      ),
       total: total,
       target: target,
       chip: AppChip(
