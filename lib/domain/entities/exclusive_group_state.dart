@@ -8,12 +8,12 @@ part 'exclusive_group_state.g.dart';
 sealed class ExclusiveGroupState with _$ExclusiveGroupState {
   factory ExclusiveGroupState.notSelected({
     required ExclusiveGroupModel group,
-  }) = _ExclusiveGroupNotSelected;
+  }) = ExclusiveGroupNotSelected;
 
   factory ExclusiveGroupState.selected({
     required ExclusiveGroupModel group,
     required String selectedCourceId
-  }) = _ExclusiveGroupSelected;
+  }) = ExclusiveGroupSelected;
 
   factory ExclusiveGroupState.fromJson(Map<String, dynamic> json) =>
       _$ExclusiveGroupStateFromJson(json);

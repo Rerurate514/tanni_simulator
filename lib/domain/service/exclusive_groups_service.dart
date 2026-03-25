@@ -13,8 +13,8 @@ class ExclusiveGroupService {
   const ExclusiveGroupService();
 
   bool isCourseContains(
-    ExclusiveGroupState exclusiveGroups, 
-    CourseModel selectedCourse
+    ExclusiveGroupState exclusiveGroups,
+    CourseModel selectedCourse,
   ) {
     final ids = exclusiveGroups.group.courseIds;
     return ids.contains(selectedCourse.id);
@@ -22,13 +22,19 @@ class ExclusiveGroupService {
 
   List<ExclusiveGroupState> exclusiveIds(
     List<ExclusiveGroupState> originalEgs,
-    CourseModel selectedCourse
-  ){
+    CourseModel selectedCourse,
+  ) {
     return originalEgs.map((eg) {
-      if(!isCourseContains(eg, selectedCourse)) return eg;
-      return ExclusiveGroupState.selected(
-        group: eg.group, 
-        selectedCourceId: selectedCourse.id
+      if (!isCourseContains(eg, selectedCourse)) return eg;
+      if (
+          eg is ExclusiveGroupSelected &&
+          eg.selectedCourceId == selectedCourse.id
+        ) {
+        return ExclusiveGroupNotSelected(group: eg.group);
+      }
+      return ExclusiveGroupSelected(
+        group: eg.group,
+        selectedCourceId: selectedCourse.id,
       );
     }).toList();
   }
