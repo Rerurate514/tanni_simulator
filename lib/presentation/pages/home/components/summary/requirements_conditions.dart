@@ -39,16 +39,21 @@ class RequirementsConditions extends HookConsumerWidget {
       children: [
         Padding(
           padding: const EdgeInsetsGeometry.all(16),
-          child: Column(
-            children: [
-              IsRequirementMet(isRequirementMet: isRequirementMet),
-              if (!isRequirementMet) const AppGap.s(),
-              CheckRequirementStatus(requirementStatus: requirementStatus),
-              if (requirementStatus != RequirementStatus.notExist)
-                const AppGap.s(),
-              MissingCourses(missingCourses: missingCourses),
-            ],
-          ),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxHeight: 200),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  IsRequirementMet(isRequirementMet: isRequirementMet),
+                  if (!isRequirementMet) const AppGap.s(),
+                  CheckRequirementStatus(requirementStatus: requirementStatus),
+                  if (requirementStatus != RequirementStatus.notExist)
+                    const AppGap.s(),
+                  MissingCourses(missingCourses: missingCourses),
+                ],
+              ),
+            ),
+          )
         )
       ],
     );
