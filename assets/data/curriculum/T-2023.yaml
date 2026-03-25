@@ -640,12 +640,12 @@ university_curriculum:
         is_required: false
         credits: 1
         term: 1
-      - id: "health-45"
+      - id: "gen-45"
         name: "健康・運動科学実習Ⅱ"
         is_required: false
         credits: 1
         term: 2
-      - id: "health-46"
+      - id: "gen-46"
         name: "スポーツ科学実習"
         is_required: false
         credits: 1
