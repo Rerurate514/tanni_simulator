@@ -119,7 +119,7 @@ class _CurriculumCategoriesState
   ) {
     final l10n = AppLocalizations.of(context);
     final coursesByTerm = groupBy(courses, (c) => c.term);
-    final sortedTerms = coursesByTerm.keys.toList();
+    final sortedTerms = coursesByTerm.keys.toList()..sort();
 
     return [
       for (final term in sortedTerms) ...[
