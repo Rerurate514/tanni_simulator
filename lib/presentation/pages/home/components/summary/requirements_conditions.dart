@@ -5,6 +5,7 @@ import 'package:tanni_simulator/application/requirement/requirement_conditions_p
 import 'package:tanni_simulator/application/state/selected_requirement_notifier.dart';
 import 'package:tanni_simulator/domain/constants/requirement_status.dart';
 import 'package:tanni_simulator/domain/entities/curriculum.dart';
+import 'package:tanni_simulator/l10n/app_localizations.dart';
 import 'package:tanni_simulator/presentation/pages/home/components/summary/check_requirement_status.dart';
 import 'package:tanni_simulator/presentation/pages/home/components/summary/is_requirement_met.dart';
 import 'package:tanni_simulator/presentation/pages/home/components/summary/missing_courses.dart';
@@ -17,6 +18,9 @@ class RequirementsConditions extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+  
     final selectedRequirement = ref.watch(selectedRequirementProvider);
     if (selectedRequirement == null) return const SizedBox.shrink();
 
@@ -30,18 +34,36 @@ class RequirementsConditions extends HookConsumerWidget {
       missingCoursesListProvider(selectedRequirement, curriculum),
     );
 
-    return Padding(
-      padding: const EdgeInsetsGeometry.all(16),
-      child: Column(
-        children: [
-          IsRequirementMet(isRequirementMet: isRequirementMet),
-          if (!isRequirementMet) const AppGap.s(),
-          CheckRequirementStatus(requirementStatus: requirementStatus),
-          if (requirementStatus != RequirementStatus.notExist)
-            const AppGap.s(),
-          MissingCourses(missingCourses: missingCourses),
-        ],
-      ),
+    return ExpansionTile(
+      title: buildExpansionTitle(l10n, theme),
+      children: [
+        Padding(
+          padding: const EdgeInsetsGeometry.all(16),
+          child: Column(
+            children: [
+              IsRequirementMet(isRequirementMet: isRequirementMet),
+              if (!isRequirementMet) const AppGap.s(),
+              CheckRequirementStatus(requirementStatus: requirementStatus),
+              if (requirementStatus != RequirementStatus.notExist)
+                const AppGap.s(),
+              MissingCourses(missingCourses: missingCourses),
+            ],
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget buildExpansionTitle(AppLocalizations l10n, ThemeData theme) {
+    return Row(
+      children: [
+        Text(
+          l10n.section_requirements,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
     );
   }
 }
