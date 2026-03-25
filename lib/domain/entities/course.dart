@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:tanni_simulator/domain/constants/category_type.dart';
 
@@ -20,9 +21,21 @@ sealed class CourseModel with _$CourseModel {
       _$CourseModelFromJson(json);
 }
 
-extension CourseListEx on List<CourseModel> {
+extension CourseListExCM on List<CourseModel> {
   int get allCredits => fold(0, (sum, course) => sum + course.credits);
   CourseModel findCourseById(String id) {
     return firstWhere((course) => course.id == id);
+  }
+}
+
+CourseModel? convertCourseById(List<CourseModel> allCourses, String id) {
+  return allCourses.firstWhereOrNull((course) => course.id == id);
+}
+
+extension CourseListExStr on List<String> {
+  List<CourseModel> toCourses(List<CourseModel> allCourses) {
+    return map((id) => convertCourseById(allCourses, id))
+        .whereType<CourseModel>()
+        .toList();
   }
 }
