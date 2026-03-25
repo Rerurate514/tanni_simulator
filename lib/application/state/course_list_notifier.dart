@@ -1,7 +1,10 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:tanni_simulator/application/state/exclusive_groups_notifier.dart';
 import 'package:tanni_simulator/application/usecase/loading_curriculum_usecase.dart';
 import 'package:tanni_simulator/domain/constants/category_type.dart';
 import 'package:tanni_simulator/domain/entities/course.dart';
+import 'package:tanni_simulator/domain/service/course_completion_service.dart';
+import 'package:tanni_simulator/domain/service/exclusive_groups_service.dart';
 
 part 'course_list_notifier.g.dart';
 
@@ -13,23 +16,30 @@ class CourseListNotifier extends _$CourseListNotifier {
 
     return curriculumAsync.maybeWhen(
       data: (data) {
-        if(data == null) return [];
+        if (data == null) return [];
 
         return [
           ...data.universityCurriculum[CategoryType.professional.index].courses,
-          ...data.universityCurriculum[CategoryType.general.index].courses
+          ...data.universityCurriculum[CategoryType.general.index].courses,
         ];
       },
-      orElse: () => []
+      orElse: () => [],
     );
   }
 
   void toggle(CourseModel targetModel) {
-    state = state.map((course) {
-      if(targetModel.id == course.id) {
-        return course.copyWith(isCompleted: !course.isCompleted);
-      }
-      return course;
-    }).toList();
+    final egs = ref.read(exclusiveGroupsProvider);
+    final egService = ref.read(exclusiveGroupServiceProvider);
+    final ccService = ref.read(courseCompletionServiceProvider);
+
+    state = ccService.applyExclusiveRules(
+      original: state,
+      targetModel: targetModel,
+      egs: egs,
+      egService: egService,
+      onMatched: (matchedCourse) {
+        ref.read(exclusiveGroupsProvider.notifier).select(matchedCourse);
+      },
+    );
   }
 }
