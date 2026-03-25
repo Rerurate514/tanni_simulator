@@ -152,17 +152,11 @@ class _CurriculumCategoriesState
             ),
           ),
         ),
-        SliverGrid(
-          delegate: SliverChildBuilderDelegate(
-            (context, i) =>
-                CurriculumTableCard(courseModel: coursesByTerm[term]![i]),
-            childCount: coursesByTerm[term]!.length,
-          ),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 6,
-            mainAxisExtent: 80,
-            crossAxisSpacing: 8,
-            mainAxisSpacing: 8,
+        SliverToBoxAdapter(
+          child: Wrap(
+            children: coursesByTerm[term]!.map(
+              (course) => CurriculumTableCard(courseModel: course),
+            ).toList(),
           ),
         ),
       ],
