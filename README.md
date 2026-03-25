@@ -38,6 +38,9 @@ flutter pub get
 # コード生成（freezed, riverpod_generator, drift）
 dart run build_runner build --delete-conflicting-outputs
 
+# l10n生成
+flutter gen-l10n
+
 # 静的解析
 flutter analyze
 ```
