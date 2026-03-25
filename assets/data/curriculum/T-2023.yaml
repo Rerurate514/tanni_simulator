@@ -721,7 +721,6 @@ exclusive_groups:
   - id: "gen-group-history-1"
     name: "東北文化史・メディア文化史 選択"
     course_ids: ["gen-13", "gen-14"]
-    max_credits_allowed: 2
 
 # 合計単位数の制限ルール（特別課外活動・他学科科目など）
 credit_limit_groups:
