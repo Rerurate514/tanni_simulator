@@ -14,6 +14,7 @@ class PromotionGateSelector extends HookConsumerWidget {
     final selectedRequirement = ref.watch(selectedRequirementProvider);
 
     return DropdownButtonFormField<RequirementModel>(
+      isExpanded: true,
       initialValue: selectedRequirement,
       decoration: InputDecoration(
         labelText: l10n.promotion_dropdown_hint,
@@ -23,7 +24,10 @@ class PromotionGateSelector extends HookConsumerWidget {
       items: requirements.map((requirement) {
         return DropdownMenuItem<RequirementModel>(
           value: requirement,
-          child: Text(requirement.title),
+          child: Text(
+            requirement.title,
+            overflow: TextOverflow.ellipsis,
+          ),
         );
       }).toList(),
       onChanged: (value) {

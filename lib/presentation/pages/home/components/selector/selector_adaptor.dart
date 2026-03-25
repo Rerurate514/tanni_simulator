@@ -14,7 +14,10 @@ class SelectorAdaptor extends HookConsumerWidget {
 
     return Row(
       children: [
-        const Expanded(child: CurriculumSelector()),
+        const Expanded(
+          flex: 3,
+          child: CurriculumSelector()
+        ),
         const AppGap.s(),
         Expanded(
           child: table.when(
@@ -24,8 +27,11 @@ class SelectorAdaptor extends HookConsumerWidget {
               if (curriculum == null) {
                 return const SizedBox.shrink();
               }
-              return PromotionGateSelector(
-                requirements: curriculum.requirements,
+              return Expanded(
+                flex: 2,
+                child: PromotionGateSelector(
+                  requirements: curriculum.requirements,
+                ),
               );
             },
           ),

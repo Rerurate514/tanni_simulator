@@ -20,6 +20,7 @@ class _CurriculumPulldownMenuState extends ConsumerState<CurriculumSelector> {
     final selectedType = useState<CurriculumType?>(null);
 
     return DropdownButtonFormField<CurriculumType>(
+      isExpanded: true,
       decoration: InputDecoration(
         labelText: l10n.home_dropdown_button_hint,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
@@ -29,7 +30,10 @@ class _CurriculumPulldownMenuState extends ConsumerState<CurriculumSelector> {
       items: CurriculumType.values.map((type) {
         return DropdownMenuItem(
           value: type,
-          child: Text(type.label),
+          child: Text(
+            type.label,
+            overflow: TextOverflow.ellipsis,
+          ),
         );
       }).toList(),
       onChanged: (newType) async {
