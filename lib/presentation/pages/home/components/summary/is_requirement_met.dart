@@ -10,7 +10,7 @@ class IsRequirementMet extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    if(!isRequirementMet) return const SizedBox.shrink();
+    if(isRequirementMet) return const SizedBox.shrink();
 
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);

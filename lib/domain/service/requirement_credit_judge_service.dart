@@ -18,7 +18,7 @@ class RequirementCreditJudgeService {
   bool isRequirementMet(RequirementModel requirement, int totalCredits) {
     if (requirement.totalCreditsRequired == null) return false;
 
-    return requirement.totalCreditsRequired! >= totalCredits;
+    return totalCredits >= requirement.totalCreditsRequired!;
   }
 
   // categoriesの専門教養それぞれのmin_creditsを超えているか

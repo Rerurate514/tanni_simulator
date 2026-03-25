@@ -37,7 +37,7 @@ class RequirementsConditions extends HookConsumerWidget {
         child: Column(
           children: [
             IsRequirementMet(isRequirementMet: isRequirementMet),
-            if (isRequirementMet) const AppGap.s(),
+            if (!isRequirementMet) const AppGap.s(),
             CheckRequirementStatus(requirementStatus: requirementStatus),
             if (requirementStatus != RequirementStatus.notExist)
               const AppGap.s(),
