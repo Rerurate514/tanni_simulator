@@ -175,12 +175,6 @@ university_curriculum:
         credits: 3
         term: 4 # 2年後期
 
-      - id: "prof-28"
-        name: "電子回路Ⅰ及び同演習"
-        is_required: true
-        credits: 3
-        term: 4
-
       - id: "prof-29"
         name: "化学"
         is_required: false
@@ -327,7 +321,7 @@ university_curriculum:
 
       - id: "prof-53"
         name: "情報通信工学実験Ⅲ"
-        is_required: true
+        is_required: false
         credits: 3
         term: 6
 
@@ -479,22 +473,22 @@ university_curriculum:
         name: "表象文化論"
         is_required: false
         credits: 2
-        term: 1
+        term: 2
       - id: "gen-12"
         name: "現代社会論"
         is_required: false
         credits: 2
-        term: 1
+        term: 2
       - id: "gen-13"
         name: "東北文化史"
         is_required: false
         credits: 2
-        term: 1
+        term: 2
       - id: "gen-14"
         name: "メディア文化史"
         is_required: false
         credits: 2
-        term: 1
+        term: 2
       - id: "gen-15"
         name: "市民と法"
         is_required: false
