@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tanni_simulator/application/credit/total_credit_provider.dart';
 import 'package:tanni_simulator/application/state/selected_requirement_notifier.dart';
-import 'package:tanni_simulator/core/utils/join_category_course.dart';
 import 'package:tanni_simulator/domain/entities/course.dart';
 import 'package:tanni_simulator/domain/entities/curriculum.dart';
+import 'package:tanni_simulator/domain/service/join_category_course_service.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
 import 'package:tanni_simulator/presentation/pages/home/components/summary/requirements_conditions.dart';
 import 'package:tanni_simulator/presentation/pages/home/providers/summary_progress_provider.dart';
@@ -20,9 +20,10 @@ class CurriculumSummary extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context);
+    final jccService = ref.watch(joinCategoryAllCourseProvider);
     final label = ref.watch(summaryLabelProvider(context));
     final total = ref.watch(totalCreditProvider);
-    final allCredits = joinCategoryAllCourse(curriculum).allCredits;
+    final allCredits = jccService.joinCategory(curriculum).allCredits;
     final target =
         ref.watch(selectedRequirementProvider)?.totalCreditsRequired ??
         allCredits;
