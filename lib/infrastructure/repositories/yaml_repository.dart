@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:tanni_simulator/core/utils/yaml_to_map.dart';
 import 'package:tanni_simulator/domain/constants/category_type.dart';
 import 'package:tanni_simulator/domain/repositories/i_yaml_repository.dart';
 import 'package:yaml/yaml.dart';
@@ -18,10 +17,28 @@ class YamlRepositoryImpl extends IYamlRepository {
     final rawYaml = await rootBundle.loadString(path);
     final yamlMap = loadYaml(rawYaml) as YamlMap;
 
-    final map = yamlToMap(yamlMap);
+    final map = _yamlToMap(yamlMap);
     final injectedMap = _addPropertyToYaml(map);
 
     return injectedMap;
+  }
+
+  Map<String, dynamic> _yamlToMap(YamlMap yamlMap) {
+    final map = <String, dynamic>{};
+    
+    for (final entry in yamlMap.entries) {
+      final key = entry.key.toString();
+      final value = entry.value;
+
+      if (value is YamlMap) {
+        map[key] = _yamlToMap(value);
+      } else if (value is YamlList) {
+        map[key] = value.map((e) => e is YamlMap ? _yamlToMap(e) : e).toList();
+      } else {
+        map[key] = value;
+      }
+    }
+    return map;
   }
 
   Map<String, dynamic> _addPropertyToYaml(Map<String, dynamic> originalYaml) {
