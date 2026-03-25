@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:tanni_simulator/domain/entities/credit_limited_rule.dart';
 
 part 'credit_limit_group.freezed.dart';
 part 'credit_limit_group.g.dart';
@@ -6,11 +7,8 @@ part 'credit_limit_group.g.dart';
 @freezed
 sealed class CreditLimitGroupModel with _$CreditLimitGroupModel {
   const factory CreditLimitGroupModel({
-    required String id,
-    required String name,
-    required String description,
-    @JsonKey(name: 'course_ids') required List<String> courseIds,
-    @JsonKey(name: 'max_credits_allowed') required int maxCreditsAllowed,
+    @JsonKey(name: 'category_name') required String categoryName,
+    required List<CreditLimitRuleModel> groups,
   }) = _CreditLimitGroupModel;
 
   factory CreditLimitGroupModel.fromJson(Map<String, dynamic> json) =>

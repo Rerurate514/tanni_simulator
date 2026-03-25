@@ -17,7 +17,7 @@ sealed class CurriculumModel with _$CurriculumModel {
     required List<RequirementModel> requirements,
     @JsonKey(name: 'exclusive_groups')
     required List<ExclusiveGroupModel> exclusiveGroups,
-    @JsonKey(name: 'credit_limit_groups')
+    @JsonKey(name: 'credit_limit_rules')
     required List<CreditLimitGroupModel> creditLimitGroups,
   }) = _CurriculumModel;
 

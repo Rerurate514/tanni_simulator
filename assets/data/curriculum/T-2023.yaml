@@ -723,23 +723,25 @@ exclusive_groups:
     course_ids: ["gen-13", "gen-14"]
 
 # 合計単位数の制限ルール（特別課外活動・他学科科目など）
-credit_limit_groups:
-  # --- 専門教育科目 ---
-  - id: "limit-prof-extracurricular"
-    name: "専門教育 特別課外活動（※1）"
-    description: "特別課外活動Ⅰ〜Ⅵの合計で6単位まで算出可能"
-    course_ids: ["prof-61", "prof-62", "prof-63", "prof-64", "prof-65", "prof-66"]
-    max_credits_allowed: 6
+credit_limit_rules:
+  - category_name: "専門教育科目"
+    groups:
+      - id: "limit-prof-extracurricular"
+        name: "専門教育 特別課外活動（"
+        description: "特別課外活動Ⅰ〜Ⅵの合計で6単位まで算出可能"
+        max_credits_allowed: 6
+        course_ids: ["prof-61", "prof-62", "prof-63", "prof-64", "prof-65", "prof-66"]
+      - id: "limit-prof-other-dept"
+        name: "専門教育 他学科・他大学科目（"
+        description: "他学科および他大学科目の合計で4単位まで算出可能"
+        max_credits_allowed: 4
+        course_ids: ["prof-67", "prof-68"]
 
-  - id: "limit-prof-other-dept"
-    name: "専門教育 他学科・他大学科目（※2）"
-    description: "他学科および他大学科目の合計で4単位まで算出可能"
-    course_ids: ["prof-67", "prof-68"]
-    max_credits_allowed: 4
-
-  # --- 教養教育科目 ---
-  - id: "limit-gen-extracurricular"
-    name: "教養教育 特別課外活動"
-    description: "学際区分の特別課外活動の合計上限（※学校規定に準ずる）"
-    course_ids: ["gen-47", "gen-48", "gen-49", "gen-50"]
-    max_credits_allowed: 4
+  - category_name: "教養教育科目"
+    groups:
+      - id: "limit-gen-extracurricular"
+        name: "教養教育 特別課外活動"
+        description: "学際区分の特別課外活動の合計上限（※学校規定に準ずる）"
+        max_credits_allowed: 4
+        course_ids: ["gen-47", "gen-48", "gen-49", "gen-50"]
+        
