@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tanni_simulator/presentation/pages/home/components/curriculum_dashboard.dart';
-import 'package:tanni_simulator/presentation/pages/home/components/selector/curriculum_selector.dart';
+import 'package:tanni_simulator/presentation/pages/home/components/selector/selector_adaptor.dart';
 import 'package:tanni_simulator/presentation/widgets/app_gap.dart';
 import 'package:tanni_simulator/presentation/widgets/page_wrapper.dart';
 
@@ -17,7 +17,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     return const PageWrapper(
       child: Column(
         children: [
-          CurriculumSelector(),
+          SelectorAdaptor(),
           AppGap.s(),
           Expanded(child: CurriculumDashboard()),
         ],
