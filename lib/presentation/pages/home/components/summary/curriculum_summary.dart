@@ -47,7 +47,7 @@ class CurriculumSummary extends HookConsumerWidget {
             ),
             const AppGap.xs(),
             AppProgressBar(total: total, target: target),
-            const AppGap.xs(),
+            const AppGap.s(),
             RequirementsConditions(curriculum: curriculum)
           ],
         ),
