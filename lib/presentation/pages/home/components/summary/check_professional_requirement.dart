@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tanni_simulator/application/requirement/category_credits_progress_provider.dart';
-import 'package:tanni_simulator/domain/constants/app_color_scheme.dart';
+import 'package:tanni_simulator/core/utils/app_color_scheme.dart';
 import 'package:tanni_simulator/domain/constants/category_type.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
 import 'package:tanni_simulator/presentation/pages/home/components/summary/check_category_requirement.dart';

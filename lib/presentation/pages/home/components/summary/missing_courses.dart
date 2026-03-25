@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:tanni_simulator/domain/constants/app_color_scheme.dart';
+import 'package:tanni_simulator/core/utils/app_color_scheme.dart';
 import 'package:tanni_simulator/domain/entities/course.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
 import 'package:tanni_simulator/presentation/widgets/app_chip.dart';

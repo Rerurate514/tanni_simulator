@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tanni_simulator/application/credit/is_credit_completed_provider.dart';
 import 'package:tanni_simulator/application/state/course_list_notifier.dart';
+import 'package:tanni_simulator/application/state/exclusive_groups_notifier.dart';
+import 'package:tanni_simulator/core/utils/app_color_scheme.dart';
 import 'package:tanni_simulator/domain/entities/course.dart';
+import 'package:tanni_simulator/domain/service/exclusive_groups_service.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
 import 'package:tanni_simulator/presentation/widgets/app_chip.dart';
 
@@ -20,6 +23,10 @@ class CurriculumTableCard extends HookConsumerWidget {
     final isCreditsCompleted = ref.watch(
       isCreditCompletedProvider(courseModel),
     );
+
+    final egService = ref.watch(exclusiveGroupServiceProvider);
+    final egs = ref.watch(exclusiveGroupsProvider);
+    final eg = egService.findGroupByCourse(egs, courseModel);
 
     return Card(
       elevation: 2,
@@ -73,6 +80,15 @@ class CurriculumTableCard extends HookConsumerWidget {
                     AppChip(
                       label: l10n.category_required,
                       color: theme.colorScheme.error,
+                      fontSize: 10,
+                    ),
+                  
+                  if(eg != null) 
+                    AppChip(
+                      label: l10n.exclusive_credits_with_group_name(
+                        eg.group.name
+                      ),
+                      color: theme.colorScheme.exclusive,
                       fontSize: 10,
                     ),
                 ],

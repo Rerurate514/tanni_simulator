@@ -88,6 +88,15 @@
     "term_6": "3年後期",
     "term_7": "4年前期",
     "term_8": "4年後期",
+    "exclusive_credits": "排他科目",
+    "exclusive_credits_with_group_name": "排他制御グループ({eg_name})",
+    "@exclusive_credits_with_group_name": {
+        "placeholders": {
+            "eg_name": {
+                "type": "String"
+            }
+        }
+    },
 
     "@@messages": "メッセージ・通知関連",
     "msg_loading_curriculum": "カリキュラムを読み込んでいます...",

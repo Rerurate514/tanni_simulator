@@ -13,11 +13,22 @@ class ExclusiveGroupService {
   const ExclusiveGroupService();
 
   bool isCourseContains(
-    ExclusiveGroupState exclusiveGroups,
+    ExclusiveGroupState eg,
     CourseModel selectedCourse,
   ) {
-    final ids = exclusiveGroups.group.courseIds;
+    final ids = eg.group.courseIds;
     return ids.contains(selectedCourse.id);
+  }
+
+  ExclusiveGroupState? findGroupByCourse(
+    List<ExclusiveGroupState> egs,
+    CourseModel selectedCourse,
+  ) {
+    for (final eg in egs) {
+      if(isCourseContains(eg, selectedCourse)) return eg;
+    }
+
+    return null;
   }
 
   List<ExclusiveGroupState> exclusiveIds(
