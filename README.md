@@ -72,8 +72,6 @@ yamlの`metadata`で定義される年度や学科、学校が表示されます
 
 ##### 必修科目
 `courses` 内の `is_required: true`になっている場合「必修」ラベルがつきます。
-`is_required: true`の科目については`requirement`のカテゴリで`check_all_is_required: true`になっている場合、以下のように要件チェックカードに表示されます。
-これは卒業の際などに必修科目が全て修了済みになっている必要があるためです。
 
 <img width="177" height="94" alt="image" src="https://github.com/user-attachments/assets/274ce805-0eff-4f0c-b7ca-5cba8297d484" />
 
