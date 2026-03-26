@@ -727,12 +727,12 @@ credit_limit_rules:
   - category_name: "専門教育科目"
     groups:
       - id: "limit-prof-extracurricular"
-        name: "専門教育 特別課外活動（"
+        name: "専門教育 特別課外活動"
         description: "特別課外活動Ⅰ〜Ⅵの合計で6単位まで算出可能"
         max_credits_allowed: 6
         course_ids: ["prof-61", "prof-62", "prof-63", "prof-64", "prof-65", "prof-66"]
       - id: "limit-prof-other-dept"
-        name: "専門教育 他学科・他大学科目（"
+        name: "専門教育 他学科・他大学科目"
         description: "他学科および他大学科目の合計で4単位まで算出可能"
         max_credits_allowed: 4
         course_ids: ["prof-67", "prof-68"]
