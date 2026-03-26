@@ -97,6 +97,18 @@
             }
         }
     },
+    "limit_credits": "上限制限科目",
+    "limit_credits_with_group_name": "上限制限グループ({cl_name}) {limit}単位まで",
+    "@limit_credits_with_group_name": {
+        "placeholders": {
+            "cl_name": {
+                "type": "String"
+            },
+            "limit": {
+                "type": "int"
+            }
+        }
+    },
 
     "@@messages": "メッセージ・通知関連",
     "msg_loading_curriculum": "カリキュラムを読み込んでいます...",

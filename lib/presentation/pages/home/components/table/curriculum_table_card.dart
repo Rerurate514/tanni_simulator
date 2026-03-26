@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tanni_simulator/application/credit/is_credit_completed_provider.dart';
 import 'package:tanni_simulator/application/state/course_list_notifier.dart';
+import 'package:tanni_simulator/application/state/credit_limit_group_notifier.dart';
 import 'package:tanni_simulator/application/state/exclusive_groups_notifier.dart';
 import 'package:tanni_simulator/core/utils/app_color_scheme.dart';
 import 'package:tanni_simulator/domain/entities/course.dart';
+import 'package:tanni_simulator/domain/entities/credit_limited_rule.dart';
 import 'package:tanni_simulator/domain/entities/exclusive_group_state.dart';
+import 'package:tanni_simulator/domain/service/credit_limit_service.dart';
 import 'package:tanni_simulator/domain/service/exclusive_groups_service.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
 import 'package:tanni_simulator/presentation/widgets/app_chip.dart';
@@ -32,6 +35,13 @@ class CurriculumTableCard extends HookConsumerWidget {
     final activeColor = isCreditsCompleted
         ? theme.colorScheme.primary
         : theme.dividerColor.withAlpha(40);
+
+    final clService = ref.watch(creditLimitServiceProvider);
+    final clgs = ref.watch(creditLimitGroupProvider);
+    final clrs = clService.findRuleByCourse(
+      limitGroups: clgs,
+      course: courseModel
+    );
 
     return ConstrainedBox(
       constraints: const BoxConstraints(
@@ -76,7 +86,7 @@ class CurriculumTableCard extends HookConsumerWidget {
                     ),
                     const AppGap.xs(),
 
-                    _buildChips(l10n, theme, eg),
+                    _buildChips(l10n, theme, eg, clrs),
                   ],
                 ),
               ),
@@ -93,6 +103,7 @@ class CurriculumTableCard extends HookConsumerWidget {
     AppLocalizations l10n,
     ThemeData theme,
     ExclusiveGroupState? eg,
+    List<CreditLimitRuleModel> clrs
   ) {
     return Wrap(
       spacing: 8,
@@ -132,6 +143,17 @@ class CurriculumTableCard extends HookConsumerWidget {
             color: theme.colorScheme.exclusive,
             fontSize: 9,
           ),
+        
+        if(clrs.isNotEmpty) 
+          for (final clr in clrs) 
+            AppChip(
+              label: l10n.limit_credits_with_group_name(
+                clr.name,
+                clr.maxCreditsAllowed
+              ),
+              color: theme.colorScheme.limit,
+              fontSize: 9,
+            ),
       ],
     );
   }
