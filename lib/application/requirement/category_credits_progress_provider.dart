@@ -1,4 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:tanni_simulator/application/credit/earned_providers.dart';
 import 'package:tanni_simulator/application/state/course_list_notifier.dart';
 import 'package:tanni_simulator/application/state/selected_requirement_notifier.dart';
 import 'package:tanni_simulator/domain/constants/category_type.dart';
@@ -17,14 +18,14 @@ bool isProfessionalRequirementMet(Ref ref) {
   final rcjService = ref.watch(requirementCreditJudgeServiceProvider);
   final courses = ref.watch(courseListProvider);
   final profCredits = ccService.getEarnedCategoryCredits(
-    courses, 
-    CategoryType.professional
+    courses,
+    CategoryType.professional,
   );
 
   return rcjService.isProfessionalRequirementMet(
     ref,
-    selectedRequirement, 
-    profCredits
+    selectedRequirement,
+    profCredits,
   );
 }
 
@@ -37,29 +38,28 @@ bool isGeneralRequirementMet(Ref ref) {
   final rcjService = ref.watch(requirementCreditJudgeServiceProvider);
   final courses = ref.watch(courseListProvider);
   final genCredits = ccService.getEarnedCategoryCredits(
-    courses, 
-    CategoryType.general
+    courses,
+    CategoryType.general,
   );
 
   return rcjService.isGeneralRequirementMet(
-    ref, 
-    selectedRequirement, 
-    genCredits
+    ref,
+    selectedRequirement,
+    genCredits,
   );
 }
 
 @riverpod
-(int total, int target)? categoryCreditsEarned(
-  Ref ref, 
-  CategoryType categoryType
+(int total, int target)? effectiveCategoryCreditsEarned(
+  Ref ref,
+  CategoryType categoryType,
 ) {
   final selectedRequirement = ref.watch(selectedRequirementProvider);
   if (selectedRequirement == null) return null;
 
-  final ccService = ref.watch(creditCalculatorServiceProvider);
-  final courses = ref.watch(courseListProvider);
-  
-  final total = ccService.getEarnedCategoryCredits(courses, categoryType);
+  final total = ref.watch(
+    getEarnedCategoryLimitedCreditsProvider(categoryType),
+  );
 
   return switchByCategoriesLength<(int, int)?>(
     selectedRequirement,
