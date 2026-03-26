@@ -42,4 +42,8 @@ class CourseListNotifier extends _$CourseListNotifier {
       },
     );
   }
+
+  void deselectAll() {
+    state = state.map((course) => course.copyWith(isCompleted: false)).toList();
+  }
 }
