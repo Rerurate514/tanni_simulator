@@ -17,9 +17,10 @@
 
 #### 進級条件
 `curriculum.requirements` のリストから選択します。
-yamlの`requirements`の各カテゴリずつセレクタに表示されます。
 
 <img width="403" height="85" alt="image" src="https://github.com/user-attachments/assets/54e1efad-b3a5-4495-8e1b-54c93dc4f69d" />
+
+yamlの`requirements`の各カテゴリずつセレクタに表示されます。
 
 <img width="449" height="214" alt="image" src="https://github.com/user-attachments/assets/3b943db5-b789-43dd-80c9-ff3e132d4c89" />
 
