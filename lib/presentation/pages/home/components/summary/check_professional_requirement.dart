@@ -17,7 +17,7 @@ class CheckProfessionalRequirement extends HookConsumerWidget {
     const notRequiredEarnCredit = 0;
 
     final progress = ref.watch(
-      categoryCreditsEarnedProvider(CategoryType.professional),
+      effectiveCategoryCreditsEarnedProvider(CategoryType.professional),
     );
     if (progress == null || progress.$2 == notRequiredEarnCredit) {
       return const SizedBox.shrink();

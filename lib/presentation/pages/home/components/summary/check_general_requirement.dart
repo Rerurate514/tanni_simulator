@@ -17,7 +17,7 @@ class CheckGeneralRequirement extends HookConsumerWidget {
     const notRequiredEarnCredit = 0;
 
     final progress = ref.watch(
-      categoryCreditsEarnedProvider(CategoryType.general),
+      effectiveCategoryCreditsEarnedProvider(CategoryType.general),
     );
     if (progress == null || progress.$2 == notRequiredEarnCredit) {
       return const SizedBox.shrink();

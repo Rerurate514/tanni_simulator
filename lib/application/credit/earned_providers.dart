@@ -9,7 +9,7 @@ import 'package:tanni_simulator/domain/service/credit_limit_service.dart';
 part 'earned_providers.g.dart';
 
 @riverpod
-int? getEarnedLimitedCredits(
+int getEarnedLimitedCredits(
   Ref ref,
 ) {
   final profCredits = ref.watch(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:tanni_simulator/application/credit/total_credit_provider.dart';
+import 'package:tanni_simulator/application/credit/earned_providers.dart';
 import 'package:tanni_simulator/application/state/course_list_notifier.dart';
 import 'package:tanni_simulator/application/state/selected_requirement_notifier.dart';
 import 'package:tanni_simulator/domain/entities/course.dart';
@@ -21,7 +21,7 @@ class CurriculumSummary extends HookConsumerWidget {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context);
     final label = ref.watch(summaryLabelProvider(context));
-    final total = ref.watch(totalCreditProvider);
+    final total = ref.watch(getEarnedLimitedCreditsProvider);
     final allCourses = ref.watch(courseListProvider);
     final allCredits = allCourses.allCredits;
     final target =
