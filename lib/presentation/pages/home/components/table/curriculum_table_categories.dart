@@ -155,7 +155,7 @@ class _CurriculumCategoriesState
         SliverToBoxAdapter(
           child: Wrap(
             children: coursesByTerm[term]!.map(
-              (course) => CurriculumTableCard(courseModel: course),
+              (course) => CurriculumTableCard(course: course),
             ).toList(),
           ),
         ),

@@ -1,47 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:tanni_simulator/application/credit/is_credit_completed_provider.dart';
 import 'package:tanni_simulator/application/state/course_list_notifier.dart';
-import 'package:tanni_simulator/application/state/credit_limit_group_notifier.dart';
-import 'package:tanni_simulator/application/state/exclusive_groups_notifier.dart';
-import 'package:tanni_simulator/core/utils/app_color_scheme.dart';
 import 'package:tanni_simulator/domain/entities/course.dart';
-import 'package:tanni_simulator/domain/entities/credit_limited_rule.dart';
-import 'package:tanni_simulator/domain/entities/exclusive_group_state.dart';
-import 'package:tanni_simulator/domain/service/credit_limit_service.dart';
-import 'package:tanni_simulator/domain/service/exclusive_groups_service.dart';
-import 'package:tanni_simulator/l10n/app_localizations.dart';
-import 'package:tanni_simulator/presentation/widgets/app_chip.dart';
+import 'package:tanni_simulator/presentation/pages/home/components/table/table_card_chips.dart';
+import 'package:tanni_simulator/presentation/pages/home/providers/course_card_state_provider.dart';
 import 'package:tanni_simulator/presentation/widgets/app_gap.dart';
 
 class CurriculumTableCard extends HookConsumerWidget {
-  const CurriculumTableCard({required this.courseModel, super.key});
+  const CurriculumTableCard({required this.course, super.key});
 
-  final CourseModel courseModel;
+  final CourseModel course;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
 
-    final isCreditsCompleted = ref.watch(
-      isCreditCompletedProvider(courseModel),
-    );
-
-    final egService = ref.watch(exclusiveGroupServiceProvider);
-    final egs = ref.watch(exclusiveGroupsProvider);
-    final eg = egService.findGroupByCourse(egs, courseModel);
-
-    final activeColor = isCreditsCompleted
-        ? theme.colorScheme.primary
-        : theme.dividerColor.withAlpha(40);
-
-    final clService = ref.watch(creditLimitServiceProvider);
-    final clgs = ref.watch(creditLimitGroupProvider);
-    final clrs = clService.findRuleByCourse(
-      limitGroups: clgs,
-      course: courseModel
-    );
+    final cardState = ref.watch(courseCardStateProviderProvider(course, theme));
 
     return ConstrainedBox(
       constraints: const BoxConstraints(
@@ -49,21 +23,20 @@ class CurriculumTableCard extends HookConsumerWidget {
         maxWidth: 300,
       ),
       child: Card(
-        elevation: isCreditsCompleted ? 0 : 2,
-        color: isCreditsCompleted
+        elevation: cardState.isCreditsCompleted ? 0 : 2,
+        color: cardState.isCreditsCompleted
             ? theme.colorScheme.primaryContainer.withAlpha(40)
             : theme.cardColor,
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
           side: BorderSide(
-            color: activeColor,
-            width: isCreditsCompleted ? 2 : 1,
+            color: cardState.activeColor,
+            width: cardState.isCreditsCompleted ? 2 : 1,
           ),
         ),
         child: InkWell(
-          onTap: () =>
-              ref.read(courseListProvider.notifier).toggle(courseModel),
+          onTap: () => ref.read(courseListProvider.notifier).toggle(course),
           child: Stack(
             children: [
               Padding(
@@ -73,11 +46,11 @@ class CurriculumTableCard extends HookConsumerWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      courseModel.name,
+                      course.name,
                       style: theme.textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.bold,
                         height: 1.3,
-                        color: isCreditsCompleted
+                        color: cardState.isCreditsCompleted
                             ? theme.colorScheme.onSurface
                             : null,
                       ),
@@ -86,75 +59,19 @@ class CurriculumTableCard extends HookConsumerWidget {
                     ),
                     const AppGap.xs(),
 
-                    _buildChips(l10n, theme, eg, clrs),
+                    TableCardChips(
+                      course: course,
+                      eg: cardState.eg,
+                      clrs: cardState.clrs,
+                    ),
                   ],
                 ),
               ),
-              if (isCreditsCompleted)
-                _buildCompletedIcon(theme)
+              if (cardState.isCreditsCompleted) _buildCompletedIcon(theme),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildChips(
-    AppLocalizations l10n,
-    ThemeData theme,
-    ExclusiveGroupState? eg,
-    List<CreditLimitRuleModel> clrs
-  ) {
-    return Wrap(
-      spacing: 8,
-      runSpacing: 6,
-      crossAxisAlignment: WrapCrossAlignment.center,
-      children: [
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              Icons.auto_awesome_motion_outlined,
-              size: 14,
-              color: theme.hintColor,
-            ),
-            const AppGap.xs(),
-            Text(
-              l10n.tanni(courseModel.credits),
-              style: theme.textTheme.labelMedium?.copyWith(
-                color: theme.hintColor,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
-        ),
-
-        if (courseModel.isRequired)
-          AppChip(
-            label: l10n.category_required,
-            color: theme.colorScheme.error,
-            fontSize: 9,
-          ),
-        if (eg != null)
-          AppChip(
-            label: l10n.exclusive_credits_with_group_name(
-              eg.group.name,
-            ),
-            color: theme.colorScheme.exclusive,
-            fontSize: 9,
-          ),
-        
-        if(clrs.isNotEmpty) 
-          for (final clr in clrs) 
-            AppChip(
-              label: l10n.limit_credits_with_group_name(
-                clr.name,
-                clr.maxCreditsAllowed
-              ),
-              color: theme.colorScheme.limit,
-              fontSize: 9,
-            ),
-      ],
     );
   }
 
