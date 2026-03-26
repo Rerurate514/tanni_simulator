@@ -25,7 +25,7 @@ class YamlRepositoryImpl extends IYamlRepository {
 
   Map<String, dynamic> _yamlToMap(YamlMap yamlMap) {
     final map = <String, dynamic>{};
-    
+
     for (final entry in yamlMap.entries) {
       final key = entry.key.toString();
       final value = entry.value;
@@ -44,8 +44,9 @@ class YamlRepositoryImpl extends IYamlRepository {
   Map<String, dynamic> _addPropertyToYaml(Map<String, dynamic> originalYaml) {
     final yaml1 = _addCourseCategoryToYaml(originalYaml);
     final yaml2 = _addRequirementsCategoryToYaml(yaml1);
+    final yaml3 = _addCreditLimitRuleCategoryToYaml(yaml2);
 
-    return yaml2;
+    return yaml3;
   }
 
   Map<String, dynamic> _addCourseCategoryToYaml(
@@ -97,6 +98,32 @@ class YamlRepositoryImpl extends IYamlRepository {
             'requirementsのcategoriesのcategory_nameが既存定義と合致しません。: $categoryName',
           );
         }
+      }
+    }
+
+    return yaml;
+  }
+
+  Map<String, dynamic> _addCreditLimitRuleCategoryToYaml(
+    Map<String, dynamic> originalYaml,
+  ) {
+    final yaml = Map<String, dynamic>.from(originalYaml);
+
+    final creditLimitRule = yaml['credit_limit_rules'] as List<dynamic>;
+
+    for (final cl in creditLimitRule) {
+      final clMap = cl as Map<String, dynamic>;
+
+      final categoryName = clMap['category_name'] as String;
+
+      if (categoryName == CategoryType.professional.nameJP) {
+        clMap['category'] = CategoryType.professional.name;
+      } else if (categoryName == CategoryType.general.nameJP) {
+        clMap['category'] = CategoryType.general.name;
+      } else {
+        throw Exception(
+          'credit_limit_rulesのcategory_nameが既存定義と合致しません。: $categoryName',
+        );
       }
     }
 
