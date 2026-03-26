@@ -26,7 +26,7 @@ class CreditCalculatorService {
         .fold(0, (sum, course) => sum + course.credits);
   }
 
-  int calculateTotal(List<CourseModel> courses) {
+  int calculateTotalCreditsEarned(List<CourseModel> courses) {
     return courses
         .where((course) => course.isCompleted)
         .fold(0, (sum, course) => sum + course.credits);

@@ -21,7 +21,7 @@ bool isRequirementMet(Ref ref, RequirementModel selectedRequirement) {
 
   return rcjService.isRequirementMet(
     selectedRequirement,
-    ccService.calculateTotal(courses),
+    ccService.calculateTotalCreditsEarned(courses),
   );
 }
 

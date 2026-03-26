@@ -9,5 +9,5 @@ int totalCredit (Ref ref) {
   final courses = ref.watch(courseListProvider);
   final service = ref.watch(creditCalculatorServiceProvider);
 
-  return service.calculateTotal(courses); 
+  return service.calculateTotalCreditsEarned(courses); 
 }
