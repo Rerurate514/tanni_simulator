@@ -128,10 +128,7 @@ credit_limit_rules:
 ## アーキテクチャ
 Layered Architectureで構成し、Riverpodで状態管理しています。
 
-- Domain: エンティティ（Course, Requirement）と判定ロジック
-- Application: Riverpodによる状態保持とユースケースの実装
-- Infrastructure: YAMLリポジトリとローカルDB（Drift）によるデータ永続化
-- Presentation: Flutter Hooks / Riverpodを使ったUIコンポーネント
+詳細は [ARCHITECTURE_GUIDE](https://github.com/Rerurate514/tanni_simulator/blob/main/docs/ARCHITECTURE_GUIDE.md) を参照してください。
 
 ## マスターデータ仕様
 カリキュラムデータは `assets/data/curriculum/` 以下のYAMLファイルで管理します。
