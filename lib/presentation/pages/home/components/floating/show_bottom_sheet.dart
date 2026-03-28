@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:tanni_simulator/application/state/selected_requirement_notifier.dart';
 import 'package:tanni_simulator/application/usecase/loading_curriculum_usecase.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
 import 'package:tanni_simulator/presentation/pages/home/components/bottom/missing_courses_bottom_sheet.dart';
@@ -11,6 +12,7 @@ class ShowBottomSheetButton extends HookConsumerWidget {
     final l10n = AppLocalizations.of(context);
 
     final table = ref.watch(loadingCurriculumUsecaseProvider);
+    final selectedRequirement = ref.watch(selectedRequirementProvider);
 
     return Card(
       shape: RoundedRectangleBorder(
@@ -21,7 +23,17 @@ class ShowBottomSheetButton extends HookConsumerWidget {
         error: (e, stack) => Text('${l10n.msg_error_load_failed}\n$e: $stack'),
         loading: CircularProgressIndicator.new,
         data: (curriculum) {
-          if(curriculum == null) return const CircularProgressIndicator();
+          if (curriculum == null) return const CircularProgressIndicator();
+          if (selectedRequirement == null) {
+            return const Padding(
+              padding: EdgeInsetsGeometry.all(6),
+              child: Icon(
+                Icons.info_outline,
+                size: 32,
+                color: Colors.grey,
+              ),
+            );
+          }
           return IconButton(
             onPressed: () async {
               await showModalBottomSheet<void>(
@@ -30,16 +42,17 @@ class ShowBottomSheetButton extends HookConsumerWidget {
                 backgroundColor: Colors.transparent,
                 builder: (context) => MissingCoursesBottomSheet(
                   curriculum: curriculum,
+                  selectedRequirement: selectedRequirement,
                 ),
               );
-            }, 
+            },
             icon: const Icon(
               Icons.check_circle,
               size: 32,
-            )
+            ),
           );
         },
-      )
+      ),
     );
   }
 }

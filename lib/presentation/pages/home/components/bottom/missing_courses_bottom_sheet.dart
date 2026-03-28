@@ -1,27 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:tanni_simulator/application/requirement/missing_courses_list_provider.dart';
-import 'package:tanni_simulator/application/state/selected_requirement_notifier.dart';
 import 'package:tanni_simulator/domain/entities/curriculum.dart';
+import 'package:tanni_simulator/domain/entities/requirement.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
 import 'package:tanni_simulator/presentation/pages/home/components/bottom/missing_courses.dart';
 import 'package:tanni_simulator/presentation/widgets/app_gap.dart';
 
 class MissingCoursesBottomSheet extends HookConsumerWidget {
-  const MissingCoursesBottomSheet({required this.curriculum, super.key});
+  const MissingCoursesBottomSheet({
+    required this.curriculum, 
+    required this.selectedRequirement,
+    super.key
+  });
 
   final CurriculumModel curriculum;
+  final RequirementModel? selectedRequirement;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
 
-    final selectedRequirement = ref.watch(selectedRequirementProvider);
     if (selectedRequirement == null) return const SizedBox.shrink();
 
     final missingCourses = ref.watch(
-      missingCoursesListProvider(selectedRequirement, curriculum),
+      missingCoursesListProvider(selectedRequirement!, curriculum),
     );
 
     return Container(
