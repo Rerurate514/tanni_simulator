@@ -15,10 +15,10 @@ sealed class CurriculumModel with _$CurriculumModel {
     @JsonKey(name: 'university_curriculum')
     required List<CategoryModel> universityCurriculum,
     required List<RequirementModel> requirements,
-    @JsonKey(name: 'exclusive_groups')
-    required List<ExclusiveGroupModel> exclusiveGroups,
     @JsonKey(name: 'credit_limit_rules')
     required List<CreditLimitGroupModel> creditLimitGroups,
+    @JsonKey(name: 'exclusive_groups') @Default([])
+    List<ExclusiveGroupModel> exclusiveGroups,
   }) = _CurriculumModel;
 
   factory CurriculumModel.fromJson(Map<String, dynamic> json) =>
