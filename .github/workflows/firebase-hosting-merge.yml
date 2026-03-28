@@ -25,4 +25,4 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_ORE_TIER }}
           channelId: live
-          projectId: ore-tier
+          projectId: tanni-simulator
