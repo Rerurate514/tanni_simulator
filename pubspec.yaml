@@ -1,5 +1,5 @@
 name: tanni_simulator
-description: "A new Flutter project."
+description: "大学の単位修得状況シミュレーターです。複雑な進級・卒業要件を整理して、履修計画を立てやすくすることを目指しています。"
 publish_to: 'none'
 version: 0.1.0
 
