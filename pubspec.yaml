@@ -2,6 +2,10 @@ name: tanni_simulator
 description: "大学の単位修得状況シミュレーターです。複雑な進級・卒業要件を整理して、履修計画を立てやすくすることを目指しています。"
 publish_to: 'none'
 version: 0.1.0
+homepage: https://tanni-simulator.rerurate.com/
+repository: https://github.com/Rerurate514/tanni_simulator
+issue_tracker: https://github.com/Rerurate514/tanni_simulator/issues
+documentation: https://github.com/Rerurate514/tanni_simulator/tree/main/docs
 
 environment:
   sdk: ^3.9.2
