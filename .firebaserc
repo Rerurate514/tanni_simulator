@@ -1,5 +1,7 @@
 {
-  "projects": {},
+  "projects": {
+    "default": "tanni-simulator"
+  },
   "targets": {},
   "etags": {}
 }
