@@ -337,22 +337,22 @@ university_curriculum:
         name: "専門特別課外活動Ⅰ"
         is_required: false
         credits: 1
-        term: 0
+        term: 99
       - id: "prof-70"
         name: "専門特別課外活動Ⅱ"
         is_required: false
         credits: 1
-        term: 0
+        term: 99
       - id: "prof-71"
         name: "専門特別課外活動Ⅲ"
         is_required: false
         credits: 1
-        term: 0
+        term: 99
       - id: "prof-72"
         name: "専門特別課外活動Ⅳ"
         is_required: false
         credits: 1
-        term: 0
+        term: 99
   - category: "教養教育科目"
     courses:
       - id: "gen-01"
@@ -589,27 +589,27 @@ university_curriculum:
         name: "教養特別課外活動Ⅰ"
         is_required: false
         credits: 1
-        term: 0
+        term: 99
       - id: "gen-48"
         name: "教養特別課外活動Ⅱ"
         is_required: false
         credits: 1
-        term: 0
+        term: 99
       - id: "gen-49"
         name: "教養特別課外活動Ⅲ"
         is_required: false
         credits: 1
-        term: 0
+        term: 99
       - id: "gen-50"
         name: "教養特別課外活動Ⅳ"
         is_required: false
         credits: 1
-        term: 0
+        term: 99
       - id: "gen-51"
         name: "他大学等教養科目群"
         is_required: false
         credits: 4
-        term: 0
+        term: 99
 
 # ==========================================
 # 3. 判定ロジック（進級・卒業要件）
