@@ -18,6 +18,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     return const PageWrapper(
       floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           ShowBottomSheetButton(),
           DeselectAllButton()
