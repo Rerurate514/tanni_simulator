@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:tanni_simulator/application/requirement/missing_courses_list_provider.dart';
 import 'package:tanni_simulator/application/requirement/requirement_conditions_providers.dart';
 import 'package:tanni_simulator/application/state/selected_requirement_notifier.dart';
-import 'package:tanni_simulator/domain/constants/requirement_status.dart';
 import 'package:tanni_simulator/domain/entities/curriculum.dart';
 import 'package:tanni_simulator/l10n/app_localizations.dart';
 import 'package:tanni_simulator/presentation/pages/home/components/summary/check_requirement_status.dart';
 import 'package:tanni_simulator/presentation/pages/home/components/summary/is_requirement_met.dart';
-import 'package:tanni_simulator/presentation/pages/home/components/summary/missing_courses.dart';
 import 'package:tanni_simulator/presentation/widgets/app_gap.dart';
 
 class RequirementsConditions extends HookConsumerWidget {
@@ -30,9 +27,6 @@ class RequirementsConditions extends HookConsumerWidget {
     final requirementStatus = ref.watch(
       requirementStatusProvider(selectedRequirement),
     );
-    final missingCourses = ref.watch(
-      missingCoursesListProvider(selectedRequirement, curriculum),
-    );
 
     return ExpansionTile(
       title: buildExpansionTitle(l10n, theme),
@@ -47,9 +41,6 @@ class RequirementsConditions extends HookConsumerWidget {
                   IsRequirementMet(isRequirementMet: isRequirementMet),
                   if (!isRequirementMet) const AppGap.s(),
                   CheckRequirementStatus(requirementStatus: requirementStatus),
-                  if (requirementStatus != RequirementStatus.notExist)
-                    const AppGap.s(),
-                  MissingCourses(missingCourses: missingCourses),
                 ],
               ),
             ),
