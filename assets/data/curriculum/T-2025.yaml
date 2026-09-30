@@ -634,7 +634,7 @@ requirements:
     categories:
       - category_name: "専門教育科目"
         min_credits: 0
-        must_have_course_ids: ["prof-27"]
+        must_have_course_ids: ["prof-29"]
 
   - id: "promotion_to_4th_year"
     title: "4年次への進級条件"
@@ -646,7 +646,7 @@ requirements:
         must_have_course_ids: ["gen-32", "gen-33", "gen-34", "gen-01", "gen-04", "gen-08"]
       - category_name: "専門教育科目"
         min_credits: 76
-        must_have_course_ids: ["prof-27", "prof-36", "prof-45"]
+        must_have_course_ids: ["prof-29", "prof-39", "prof-63"]
 
   - id: "graduation_requirements"
     title: "卒業要件"
@@ -660,15 +660,15 @@ requirements:
         min_credits: 100
         required_compulsory_credits: 60
 
-  # - id: "registration_condition_graduation_research_1"
-  #   title: "卒業研修Ⅰの履修前提条件"
-  #   description: "3年次後期科目「卒業研修Ⅰ」を履修するために必要な条件"
-  #   categories:
-  #     - category_name: "教養教育科目"
-  #       must_have_course_ids: ["gen-32"]
-  #     - category_name: "専門教育科目"
-  #       min_credits: 60
-  #       must_have_course_ids: ["prof-27", "prof-36"]
+  - id: "registration_condition_graduation_research_1"
+    title: "卒業研修Ⅰの履修前提条件"
+    description: "3年次後期科目「卒業研修Ⅰ」を履修するために必要な条件"
+    categories:
+      - category_name: "教養教育科目"
+        must_have_course_ids: ["gen-32"]
+      - category_name: "専門教育科目"
+        min_credits: 60
+        must_have_course_ids: ["prof-29", "prof-39"]
 
 # exclusive_groups:
 #   - id: "gen-group-culture-1"
